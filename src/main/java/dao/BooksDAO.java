@@ -1,0 +1,131 @@
+package dao;
+
+import model.Book;
+import model.User;
+import util.ConnectionUtil;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class BooksDAO {
+
+    public Book addBook(Book book) {
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            String sql = "insert into books(title, author_name, category, year, price, cover_img, summary)" +
+                    " values(?, ?, ?, ?, ?, ?, ?);";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, book.getTitle());
+            preparedStatement.setString(2, book.getAuthor_name());
+            preparedStatement.setString(3, book.getCategory());
+            preparedStatement.setDate(4, book.getYear());
+            preparedStatement.setDouble(5, book.getPrice());
+            preparedStatement.setString(6, book.getCover_img());
+            preparedStatement.setString(7, book.getSummary());
+
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys(); // to get the id of the inserted book
+            if(resultSet.next()){
+                int book_id = resultSet.getInt(1);
+                book.setId(book_id);
+                return book;
+            }
+        }catch(
+                SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public Book getBookById(int book_id){
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            String sql = "select * from books where id = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, book_id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            if(rs.next()){
+                Book book = new Book(rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("author_name"),
+                        rs.getString("category"),
+                        rs.getDate("year"),
+                        rs.getDouble("price"),
+                        rs.getString("cover_img"),
+                        rs.getString("summary"));
+                return book;
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Book> getAllBooks(){
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            String sql = "select * from books;";
+            Statement statement = connection.createStatement();
+
+            ResultSet rs = statement.executeQuery(sql);
+
+            ArrayList<Book> books = new ArrayList<>();
+
+            while(rs.next()){
+                books.add(new Book(rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("author_name"),
+                        rs.getString("category"),
+                        rs.getDate("year"),
+                        rs.getDouble("price"),
+                        rs.getString("cover_img"),
+                        rs.getString("summary")));
+            }
+            return books;
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public boolean deleteBookById(int book_id){
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            String sql = "delete from books where id = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, book_id);
+
+            int deleted_rows = preparedStatement.executeUpdate();
+            return deleted_rows != 0; // should be 1
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    public Book updateBookById(int book_id, Book book){
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            String sql = "update books set title = ?, author_name = ?, category = ?, year = ?, price = ?" +
+                    ", cover_img = ?, summary = ? where id = ? ;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, book.getTitle());
+            preparedStatement.setString(2, book.getAuthor_name());
+            preparedStatement.setString(3, book.getCategory());
+            preparedStatement.setDate(4, book.getYear());
+            preparedStatement.setDouble(5, book.getPrice());
+            preparedStatement.setString(6, book.getCover_img());
+            preparedStatement.setString(7, book.getSummary());
+            preparedStatement.setInt(8, book_id);
+
+            preparedStatement.execute();
+            return book;
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+}
