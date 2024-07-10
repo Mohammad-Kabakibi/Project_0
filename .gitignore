@@ -12,6 +12,7 @@ target/
 *.iml
 *.ipr
 *.jpg
+!default_cover_img.jpg
 *.png
 
 ### Eclipse ###
