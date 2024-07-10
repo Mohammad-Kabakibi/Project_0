@@ -2,10 +2,10 @@ package service;
 
 import dao.UsersDAO;
 import model.User;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.sql.Date;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -37,10 +37,18 @@ public class UsersService {
     public User updateUserById(int userId, JSONObject new_user) {
         User user = getUserById(userId);
         if(user != null){
-            if(new_user.has("name"))
-                user.setName(new_user.getString("name"));
-            if(new_user.has("password"))
-                user.setPassword(new_user.getString("password"));
+            if(new_user.has("name")) {
+                String name = new_user.getString("name");
+                if(name.length() > 100 || name.length() < 2)
+                    return null;
+                user.setName(name);
+            }
+            if(new_user.has("password")){
+                String password = new_user.getString("password");
+                if(password.length() > 35 || password.length() < 2)
+                    return null;
+                user.setPassword(password);
+            }
             if(new_user.has("member_since"))
                 user.setMember_since(Date.valueOf(new_user.getString("member_since")));
         }
@@ -54,5 +62,11 @@ public class UsersService {
         if(usersDAO.deleteUserById(userId))
             return deleted_user;
         return null;
+    }
+
+    public JSONArray getUsersByBookId(int bookId) {
+        if(bookId <= 0)
+            return new JSONArray();
+        return usersDAO.getUsersByBookId(bookId);
     }
 }

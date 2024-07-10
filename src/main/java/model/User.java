@@ -13,10 +13,17 @@ public class User {
     }
 
     public User(int id, String name, String password, Date member_since) {
-        this.member_since = member_since;
-        this.name = name;
-        this.password = password;
         this.id = id;
+        this.name = name;
+        this.member_since = member_since;
+        this.password = password;
+
+    }
+
+    public User(int id, String name, Date member_since) {
+        this.id = id;
+        this.name = name;
+        this.member_since = member_since;
     }
 
     public int getId() {

@@ -1,6 +1,8 @@
 package dao;
 
 import model.User;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import util.ConnectionUtil;
 
 import java.sql.*;
@@ -107,5 +109,31 @@ public class UsersDAO {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    public JSONArray getUsersByBookId(int bookId) {Connection connection = ConnectionUtil.getConnection();
+        JSONArray users = new JSONArray();
+        try{
+            String sql = "select users.id, name, member_since, copies " +
+                    "from books inner join bought_books on books.id = bought_books.book_id " +
+                    "inner join users ON users.id = bought_books.user_id " +
+                    "where books.id = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, bookId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                JSONObject jo = new JSONObject();
+                jo.put("id", rs.getInt("id"));
+                jo.put("name", rs.getString("name"));
+                jo.put("member_since", rs.getDate("member_since"));
+                jo.put("copies", rs.getInt("copies"));
+                users.put(jo);
+            }
+        }catch(Exception q){}
+
+        return users;
+
     }
 }

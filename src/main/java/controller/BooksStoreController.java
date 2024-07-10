@@ -42,18 +42,21 @@ public class BooksStoreController {
 
         app.get("users", this::getAllUsers);
         app.get("users/{id}", this::getUserById);
+        app.get("users/{id}/books", this::getBooksByUserId);
         app.post("users", this::registerNewUser);
         app.patch("users/{id}", this::updateUserById);
         app.delete("users/{id}", this::deleteUserById);
 
         app.get("books", this::getAllBooks);
         app.get("books/{id}", this::getBookById);
+        app.get("books/{id}/users", this::getUsersByBookId);
         app.post("books", this::addBook);
         app.patch("books/{id}", this::updateBookById);
         app.delete("books/{id}", this::deleteBookById);
 
         return app;
     }
+
 
     private void getAllUsers(Context context){
         ObjectMapper mapper = new ObjectMapper();
@@ -78,7 +81,7 @@ public class BooksStoreController {
                 context.json(mapper.writeValueAsString(user));
             }
             else{
-                context.status(200);
+                context.status(404);
             }
             return;
         }catch(JsonProcessingException e){
@@ -149,6 +152,21 @@ public class BooksStoreController {
         }catch(JsonProcessingException e){
             context.status(400);
         }
+    }
+
+    private void getUsersByBookId(Context context){
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        try{
+            int book_id = Integer.parseInt(context.pathParam("id"));
+            var jsonArr = usersService.getUsersByBookId(book_id);
+
+            context.json(jsonArr.toString());
+            return;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        context.status(400);
     }
 
     //============================ Books ====================================
@@ -249,27 +267,41 @@ public class BooksStoreController {
             System.out.println(e.getMessage());
         }
         context.status(400);
-}
+    }
 
-private void deleteBookById(Context context){
-    ObjectMapper mapper = new ObjectMapper();
-    mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-    try{
-        int book_id = Integer.parseInt(context.pathParam("id"));
-        Book deleted_book = booksService.deleteBookById(book_id);
-        if(deleted_book != null){
-            context.json(mapper.writeValueAsString(deleted_book));
+    private void deleteBookById(Context context){
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        try{
+            int book_id = Integer.parseInt(context.pathParam("id"));
+            Book deleted_book = booksService.deleteBookById(book_id);
+            if(deleted_book != null){
+                context.json(mapper.writeValueAsString(deleted_book));
+            }
+            else{
+                context.status(200);
+            }
+            return;
+        }catch(JsonProcessingException e){
+            System.out.println(e.getMessage());
         }
-        else{
-            context.status(200);
+        catch(NumberFormatException e){
+            System.out.println(e.getMessage());
         }
-        return;
-    }catch(JsonProcessingException e){
-        System.out.println(e.getMessage());
+        context.status(400);
     }
-    catch(NumberFormatException e){
-        System.out.println(e.getMessage());
+
+    private void getBooksByUserId(Context context) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        try{
+            int user_id = Integer.parseInt(context.pathParam("id"));
+            var books = booksService.getBooksByUserId(user_id);
+            context.json(books.toString());
+            return;
+        }catch(Exception q){
+            System.out.println(q.getMessage());
+        }
+        context.status(400);
     }
-    context.status(400);
-}
 }

@@ -2,7 +2,7 @@ package service;
 
 import dao.BooksDAO;
 import model.Book;
-import model.User;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.sql.Date;
@@ -16,7 +16,7 @@ public class BooksService {
     }
 
     public Book addBook(Book book) {
-        if(book.getPrice() < 0)
+        if(book.getPrice() < 0 || book.getTitle().length() < 2)
             return null;
         return booksDAO.addBook(book);
     }
@@ -33,6 +33,7 @@ public class BooksService {
 
     public Book updateBookById(int bookId, JSONObject new_book) {
         Book book = getBookById(bookId);
+        // Patch request...
         if(book != null){
             if(new_book.has("title"))
                 book.setTitle(new_book.getString("title"));
@@ -48,7 +49,6 @@ public class BooksService {
                 book.setPrice(new_book.getDouble("price"));
             // Cover Img =================================================================================
         }
-
         return booksDAO.updateBookById(bookId, book);
     }
 
@@ -59,5 +59,11 @@ public class BooksService {
         if(booksDAO.deleteBookById(bookId))
             return deleted_book;
         return null;
+    }
+
+    public JSONArray getBooksByUserId(int userId) {
+        if(userId <= 0)
+            return new JSONArray();
+        return booksDAO.getBooksByUserId(userId);
     }
 }
