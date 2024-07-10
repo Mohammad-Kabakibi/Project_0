@@ -162,9 +162,9 @@ public class BooksDAO {
     public JSONArray getMostKBooks(int k) {
         JSONArray books = new JSONArray();
         try{
-            String sql = "select books.id, title, author_name, category, year, price, cover_img, summary, count(bought_books.book_id) as copies " +
+            String sql = "select books.id, title, author_name, category, year, price, cover_img, summary, sum(bought_books.copies) as copies " +
                     "from books inner join bought_books on books.id = bought_books.book_id " +
-                    "group by books.id order by copies limit ?;";
+                    "group by books.id order by copies DESC limit ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, k);
 

@@ -20,23 +20,33 @@ import java.util.List;
 
 import org.json.JSONObject;
 
+import static org.example.util.StaticFilesUtil.UPLOAD_FOLDER;
+import static org.example.util.StaticFilesUtil.IMAGES_FOLDER;
+
 public class BooksStoreController {
     private BooksService booksService;
     private UsersService usersService;
 
-    public BooksStoreController(){
+    private ObjectMapper mapper;
 
+    public BooksStoreController(){
+        this.booksService = new BooksService();
+        this.usersService = new UsersService();
+        mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     }
 
     public BooksStoreController(BooksService booksService, UsersService usersService){
         this.booksService = booksService;
         this.usersService = usersService;
+        mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     }
 
     public Javalin startAPI() {
         Javalin app = Javalin.create(javalinConfig -> {
             javalinConfig.staticFiles.add(staticFiles -> {             // change to host files on a subpath, like '/assets'
-                staticFiles.directory = "upload";              // the directory where your files are located
+                staticFiles.directory = UPLOAD_FOLDER;              // the directory where your files are located
                 staticFiles.location = Location.EXTERNAL;      // Location.CLASSPATH (jar) or Location.EXTERNAL (file system)
             });
         });
@@ -63,8 +73,6 @@ public class BooksStoreController {
 
 
     private void getAllUsers(Context context){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         try{
             List<User> users = usersService.getAllUsers();
             context.json(mapper.writeValueAsString(users));
@@ -76,8 +84,6 @@ public class BooksStoreController {
     }
 
     private void getUserById(Context context){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         try{
             int user_id = Integer.parseInt(context.pathParam("id"));
             Result<User> user = usersService.getUserById(user_id);
@@ -85,7 +91,7 @@ public class BooksStoreController {
                 context.json(mapper.writeValueAsString(user.getObj()));
             }
             else{
-                context.json("{msg:"+user.getMsg()+"}").status(400);
+                context.json(mapper.writeValueAsString(user.getMsg())).status(400);
             }
             return;
         }catch(JsonProcessingException e){
@@ -98,8 +104,6 @@ public class BooksStoreController {
     }
 
     private void updateUserById(Context context){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         try{
             int user_id = Integer.parseInt(context.pathParam("id"));
 
@@ -110,7 +114,7 @@ public class BooksStoreController {
                 context.json(mapper.writeValueAsString(updated_user.getObj()));
             }
             else{
-                context.json("{msg:"+updated_user.getMsg()+"}").status(400);
+                context.json(mapper.writeValueAsString(updated_user.getMsg())).status(400);
             }
             return;
         }catch(Exception e){
@@ -120,8 +124,6 @@ public class BooksStoreController {
     }
 
     private void deleteUserById(Context context){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         try{
             int user_id = Integer.parseInt(context.pathParam("id"));
             Result<User> deleted_user = usersService.deleteUserById(user_id);
@@ -129,7 +131,7 @@ public class BooksStoreController {
                 context.json(mapper.writeValueAsString(deleted_user.getObj()));
             }
             else{
-                context.json("{msg:"+deleted_user.getMsg()+"}").status(400);
+                context.json(mapper.writeValueAsString(deleted_user.getMsg())).status(400);
             }
             return;
         }catch(JsonProcessingException e){
@@ -142,13 +144,11 @@ public class BooksStoreController {
     }
 
     private void registerNewUser(Context context){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         try{
             User user = mapper.readValue(context.body(), User.class);
             Result<User> registeredUser = usersService.addUser(user);
             if(registeredUser.getObj() == null){
-                context.json("{msg:"+registeredUser.getMsg()+"}").status(400);
+                context.json(mapper.writeValueAsString(registeredUser.getMsg())).status(400);
             }
             else{
                 context.json(mapper.writeValueAsString(registeredUser.getObj()));
@@ -163,7 +163,7 @@ public class BooksStoreController {
             int book_id = Integer.parseInt(context.pathParam("id"));
             var jsonArr = usersService.getUsersByBookId(book_id);
             if(jsonArr.getObj() == null){
-                context.json("{msg:"+jsonArr.getMsg()+"}").status(400);
+                context.json(mapper.writeValueAsString(jsonArr.getMsg())).status(400);
             }
             else{
                 context.json(jsonArr.getObj().toString());
@@ -178,8 +178,6 @@ public class BooksStoreController {
     //============================ Books ====================================
 
     private void addBook(Context context){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         try{
             if(context.isMultipart()) {
                 var formParams = context.formParamMap();
@@ -200,26 +198,26 @@ public class BooksStoreController {
                 var cover_img = context.uploadedFile("cover_img");
                 String file_name = null;
                 if (cover_img != null) {
-                    file_name = "images/" + book.getTitle().replaceAll(" ","_") + cover_img.extension();
-                    book.setCover_img(context.host() + "/" + file_name);
+                    file_name = IMAGES_FOLDER + book.getTitle().replaceAll(" ","_") + cover_img.extension();
+                    book.setCover_img(context.host() + file_name);
                 }
 
                 Result<Book> addedBook = booksService.addBook(book);
                 if (addedBook.getObj() == null) {
-                    context.json("{msg:"+addedBook.getMsg()+"}").status(400);
+                    context.json(mapper.writeValueAsString(addedBook.getMsg())).status(400);
                 } else {
                     if (cover_img != null)
-                        FileUtils.copyInputStreamToFile(cover_img.content(), new File("upload/"+file_name));
+                        FileUtils.copyInputStreamToFile(cover_img.content(), new File(UPLOAD_FOLDER + file_name));
                     context.json(mapper.writeValueAsString(addedBook.getObj())).status(201);
                 }
             }
 
             else{
                 Book book = mapper.readValue(context.body(), Book.class);
-                book.setCover_img(context.host() + "/images/default_cover_img.jpg");
+                book.setCover_img(context.host() + IMAGES_FOLDER + "default_cover_img.jpg");
                 Result<Book> addedBook = booksService.addBook(book);
                 if(addedBook.getObj() == null){
-                    context.json("{msg:"+addedBook.getMsg()+"}").status(400);
+                    context.json(mapper.writeValueAsString(addedBook.getMsg())).status(400);
                 }
                 else{
                     context.json(mapper.writeValueAsString(addedBook.getObj()));
@@ -232,8 +230,6 @@ public class BooksStoreController {
     }
 
     private void getAllBooks(Context context){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         try{
             List<Book> books = booksService.getAllBooks();
             context.json(mapper.writeValueAsString(books));
@@ -245,8 +241,6 @@ public class BooksStoreController {
     }
 
     private void getBookById(Context context){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         try{
             int book_id = Integer.parseInt(context.pathParam("id"));
             Result<Book> book = booksService.getBookById(book_id);
@@ -254,7 +248,7 @@ public class BooksStoreController {
                 context.json(mapper.writeValueAsString(book.getObj()));
             }
             else{
-                context.json("{msg:"+book.getMsg()+"}").status(400);
+                context.json(mapper.writeValueAsString(book.getMsg())).status(400);
             }
             return;
         }catch(JsonProcessingException e){
@@ -262,14 +256,12 @@ public class BooksStoreController {
         }
         catch(NumberFormatException e){
             System.out.println(e.getMessage());
-            context.json("{msg:ID must be number}").status(400);
+            context.json("{message:ID must be number}").status(400);
         }
         context.status(400);
     }
 
     private void updateBookById(Context context){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         try{
             int book_id = Integer.parseInt(context.pathParam("id"));
 
@@ -290,29 +282,26 @@ public class BooksStoreController {
                     jsonBody.put("price", Double.parseDouble(context.formParam("price")));
 
                 var cover_img = context.uploadedFile("cover_img");
-                String file_name = null;
                 if (cover_img != null) {
-                    file_name = "images/" + jsonBody.getString("title").replaceAll(" ","_") + cover_img.extension();
-                    jsonBody.put("cover_img",context.host() + "/" + file_name);
+                    jsonBody.put("cover_img",context.host());
                 }
 
-                Result<Book> updated_book = booksService.updateBookById(book_id, jsonBody);
+                Result<Book> updated_book = booksService.updateBookById(book_id, jsonBody, cover_img);
                 if (updated_book.getObj() == null) {
-                    context.json("{msg:"+updated_book.getMsg()+"}").status(400);
+                    context.json(mapper.writeValueAsString(updated_book.getMsg())).status(400);
                 } else {
-                    if (cover_img != null)
-                        FileUtils.copyInputStreamToFile(cover_img.content(), new File("upload/" + file_name));
                     context.json(mapper.writeValueAsString(updated_book.getObj())).status(200);
                 }
+                return;
             }
             else{
                 JSONObject jsonBody = new JSONObject(context.body());
 
-                Result<Book> updated_book = booksService.updateBookById(book_id, jsonBody);
+                Result<Book> updated_book = booksService.updateBookById(book_id, jsonBody, null);
                 if (updated_book.getObj() != null) {
                     context.json(mapper.writeValueAsString(updated_book.getObj()));
                 } else {
-                    context.json("{msg:" + updated_book.getMsg() + "}").status(400);
+                    context.json(mapper.writeValueAsString(updated_book.getMsg())).status(400);
                 }
                 return;
             }
@@ -323,8 +312,6 @@ public class BooksStoreController {
     }
 
     private void deleteBookById(Context context){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         try{
             int book_id = Integer.parseInt(context.pathParam("id"));
             Result<Book> deleted_book = booksService.deleteBookById(book_id);
@@ -332,7 +319,7 @@ public class BooksStoreController {
                 context.json(mapper.writeValueAsString(deleted_book.getObj()));
             }
             else{
-                context.json("{msg:"+deleted_book.getMsg()+"}").status(400);
+                context.json(mapper.writeValueAsString(deleted_book.getMsg())).status(400);
             }
             return;
         }catch(JsonProcessingException e){
@@ -349,7 +336,7 @@ public class BooksStoreController {
             int user_id = Integer.parseInt(context.pathParam("id"));
             var books = booksService.getBooksByUserId(user_id);
             if(books.getObj() == null){
-                context.json("{msg:"+books.getMsg()+"}").status(400);
+                context.json(mapper.writeValueAsString(books.getMsg())).status(400);
             }
             else{
                 context.json(books.getObj().toString());
@@ -369,7 +356,7 @@ public class BooksStoreController {
             }
             var books = booksService.getMostKBooks(k);
             if(books.getObj() == null){
-                context.json("{msg:"+books.getMsg()+"}").status(400);
+                context.json(mapper.writeValueAsString(books.getMsg())).status(400);
             }
             else{
                 context.json(books.getObj().toString());

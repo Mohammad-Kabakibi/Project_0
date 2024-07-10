@@ -6,22 +6,45 @@ public class Result<T> {
 //        public static int ALREADY_EXIST = 2;
 //        public static int WRONG_VALUES = 3;
 //    }
-    private String msg;
+//    private String msg;
+
     private T obj;
+    Msg msg;
+
+    private class Msg{
+        private String message;
+
+        public Msg(String message){
+            this.message = message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return this.message;
+        }
+    }
+
 
     public Result(){}
 
     public Result(String msg, T obj) {
-        this.msg = msg;
+        this.msg = new Msg(msg);
         this.obj = obj;
     }
 
-    public String getMsg() {
+//    public String getMsg() {
+//        return msg;
+//    }
+
+    public Msg getMsg() {
         return msg;
     }
 
     public void setMsg(String msg) {
-        this.msg = msg;
+        this.msg.setMessage(msg);
     }
 
     public T getObj() {

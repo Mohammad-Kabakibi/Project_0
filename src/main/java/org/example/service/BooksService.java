@@ -1,5 +1,7 @@
 package org.example.service;
 
+import io.javalin.http.UploadedFile;
+import org.apache.commons.io.FileUtils;
 import org.example.config.Result;
 import org.example.dao.BooksDAO;
 import org.example.model.Book;
@@ -9,6 +11,9 @@ import org.json.JSONObject;
 import java.io.File;
 import java.sql.Date;
 import java.util.List;
+
+import static org.example.util.StaticFilesUtil.IMAGES_FOLDER;
+import static org.example.util.StaticFilesUtil.UPLOAD_FOLDER;
 
 public class BooksService {
     private BooksDAO booksDAO;
@@ -38,9 +43,10 @@ public class BooksService {
         return new Result<>("", book);
     }
 
-    public Result<Book> updateBookById(int bookId, JSONObject new_book) {
+    public Result<Book> updateBookById(int bookId, JSONObject new_book, UploadedFile new_img) {
         Result<Book> book = getBookById(bookId);
         String old_img = null;
+        String file_name = null;
         // Patch request...
         Book updated_book = null;
         if(book.getObj() != null){
@@ -57,8 +63,10 @@ public class BooksService {
                 book.getObj().setYear(Date.valueOf(new_book.getString("year")));
             if(new_book.has("price"))
                 book.getObj().setPrice(new_book.getDouble("price"));
-            if(new_book.has("cover_img"))
-                book.getObj().setCover_img(new_book.getString("cover_img"));
+            if(new_book.has("cover_img")) {
+                file_name = book.getObj().getTitle().replaceAll(" ","_") + new_img.extension();
+                book.getObj().setCover_img(new_book.getString("cover_img")+IMAGES_FOLDER+file_name);
+            }
             updated_book = booksDAO.updateBookById(bookId, book.getObj());
         }
         else{
@@ -71,9 +79,10 @@ public class BooksService {
             try {
                 if(isDefaultImage(old_img))
                     return updated_book_result;
-                var cover_img = new File("upload/images/" + old_img);
+                var cover_img = new File(UPLOAD_FOLDER + IMAGES_FOLDER + old_img);
                 if (cover_img.exists())
                     cover_img.delete();
+                FileUtils.copyInputStreamToFile(new_img.content(), new File(UPLOAD_FOLDER + IMAGES_FOLDER + file_name));
             }catch (Exception q){
                 System.out.println(q.getMessage());
             }
@@ -93,7 +102,7 @@ public class BooksService {
                 if(isDefaultImage(deleted_book.getCover_img()))
                     return deleted_book_result;
                 String ext = "."+(deleted_book.getCover_img().split("\\."))[1];
-                var cover_img = new File("upload/images/" + deleted_book.getTitle().replaceAll(" ","_") + ext);
+                var cover_img = new File(UPLOAD_FOLDER + IMAGES_FOLDER + deleted_book.getTitle().replaceAll(" ","_") + ext);
                 if (cover_img.exists())
                     cover_img.delete();
             }catch (Exception q){
