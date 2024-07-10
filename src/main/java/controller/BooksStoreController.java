@@ -48,6 +48,8 @@ public class BooksStoreController {
         app.delete("users/{id}", this::deleteUserById);
 
         app.get("books", this::getAllBooks);
+        app.get("books/most_selling/{k}", this::getMostKBooks);
+        app.get("books/most_selling", this::getMostKBooks);
         app.get("books/{id}", this::getBookById);
         app.get("books/{id}/users", this::getUsersByBookId);
         app.post("books", this::addBook);
@@ -56,6 +58,7 @@ public class BooksStoreController {
 
         return app;
     }
+
 
 
     private void getAllUsers(Context context){
@@ -155,8 +158,6 @@ public class BooksStoreController {
     }
 
     private void getUsersByBookId(Context context){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         try{
             int book_id = Integer.parseInt(context.pathParam("id"));
             var jsonArr = usersService.getUsersByBookId(book_id);
@@ -292,11 +293,24 @@ public class BooksStoreController {
     }
 
     private void getBooksByUserId(Context context) {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         try{
             int user_id = Integer.parseInt(context.pathParam("id"));
             var books = booksService.getBooksByUserId(user_id);
+            context.json(books.toString());
+            return;
+        }catch(Exception q){
+            System.out.println(q.getMessage());
+        }
+        context.status(400);
+    }
+
+    private void getMostKBooks(Context context) {
+        try{
+            int k = 3;
+            if(context.pathParamMap().containsKey("k")){
+                k = Integer.parseInt(context.pathParam("k"));
+            }
+            var books = booksService.getMostKBooks(k);
             context.json(books.toString());
             return;
         }catch(Exception q){

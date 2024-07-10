@@ -158,4 +158,33 @@ public class BooksDAO {
         }catch(Exception q){}
         return books;
     }
+
+    public JSONArray getMostKBooks(int k) {
+        Connection connection = ConnectionUtil.getConnection();
+        JSONArray books = new JSONArray();
+        try{
+            String sql = "select books.id, title, author_name, category, year, price, cover_img, summary, count(bought_books.book_id) as copies " +
+                    "from books inner join bought_books on books.id = bought_books.book_id " +
+                    "group by books.id order by copies limit ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, k);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                JSONObject jo = new JSONObject();
+                jo.put("id", rs.getInt("id"));
+                jo.put("title", rs.getString("title"));
+                jo.put("author_name", rs.getString("author_name"));
+                jo.put("category", rs.getString("category"));
+                jo.put("year", rs.getDate("year"));
+                jo.put("price", rs.getDouble("price"));
+                jo.put("cover_img", rs.getString("cover_img"));
+                jo.put("summary", rs.getString("summary"));
+                jo.put("copies_sold", rs.getInt("copies"));
+                books.put(jo);
+            }
+        }catch(Exception q){}
+        return books;
+    }
 }

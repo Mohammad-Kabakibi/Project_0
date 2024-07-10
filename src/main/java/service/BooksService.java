@@ -66,4 +66,10 @@ public class BooksService {
             return new JSONArray();
         return booksDAO.getBooksByUserId(userId);
     }
+
+    public JSONArray getMostKBooks(int k) {
+        if(k <= 0)
+            return new JSONArray();
+        return booksDAO.getMostKBooks(k);
+    }
 }
