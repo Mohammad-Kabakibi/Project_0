@@ -1,5 +1,6 @@
 package service;
 
+import config.Result;
 import dao.UsersDAO;
 import model.User;
 import org.json.JSONArray;
@@ -16,57 +17,66 @@ public class UsersService {
         this.usersDAO = new UsersDAO();
     }
 
-    public User addUser(User user) {
+    public Result<User> addUser(User user) {
         if(user.getName().length() > 100 || user.getName().length() < 2 || user.getPassword().length() < 2 || user.getPassword().length() > 35)
-            return null;
+            return new Result<>("Wrong Values", null);
         if(user.getMember_since() == null)
             user.setMember_since(Date.valueOf(LocalDateTime.now().toLocalDate().toString()));
-        return usersDAO.addUser(user);
+        User added_user = usersDAO.addUser(user);
+        if(added_user == null)
+            return new Result<>("Something went wrong", null);
+        return new Result<>("", added_user);
     }
 
     public List<User> getAllUsers() {
         return usersDAO.getAllUsers();
     }
 
-    public User getUserById(int userId) {
+    public Result<User> getUserById(int userId) {
         if(userId <= 0)
-            return null;
-        return usersDAO.getUserById(userId);
+            return new Result<>("ID must be positive", null);
+        User user = usersDAO.getUserById(userId);
+        if(user == null)
+            return new Result<>("User (ID:"+userId+") doesn't exist", null);
+        return new Result<>("", user);
     }
 
-    public User updateUserById(int userId, JSONObject new_user) {
-        User user = getUserById(userId);
-        if(user != null){
+    public Result<User> updateUserById(int userId, JSONObject new_user) {
+        Result<User> user = getUserById(userId);
+        if(user.getObj() != null){
             if(new_user.has("name")) {
                 String name = new_user.getString("name");
                 if(name.length() > 100 || name.length() < 2)
-                    return null;
-                user.setName(name);
+                    return new Result<>("Name must be between 2-100 characters", null);
+                user.getObj().setName(name);
             }
             if(new_user.has("password")){
                 String password = new_user.getString("password");
-                if(password.length() > 35 || password.length() < 2)
-                    return null;
-                user.setPassword(password);
+                if(password.length() > 45 || password.length() < 2)
+                    return new Result<>("Password must be between 2-45 characters", null);
+                user.getObj().setPassword(password);
             }
             if(new_user.has("member_since"))
-                user.setMember_since(Date.valueOf(new_user.getString("member_since")));
+                user.getObj().setMember_since(Date.valueOf(new_user.getString("member_since")));
         }
-        return usersDAO.updateUserById(userId, user);
+        User updated_user = usersDAO.updateUserById(userId, user.getObj());
+        if(updated_user == null)
+            return new Result<>("Something went wrong", null);
+        return new Result<>("", updated_user);
     }
 
-    public User deleteUserById(int userId) {
+    public Result<User> deleteUserById(int userId) {
         if(userId <= 0)
-            return null;
+            return new Result<>("ID must be positive", null);
         User deleted_user = usersDAO.getUserById(userId);
         if(usersDAO.deleteUserById(userId))
-            return deleted_user;
-        return null;
+            return new Result<>("", deleted_user);
+        return new Result<>("User (ID:"+userId+") doesn't exist", null);
     }
 
-    public JSONArray getUsersByBookId(int bookId) {
+    public Result<JSONArray> getUsersByBookId(int bookId) {
         if(bookId <= 0)
-            return new JSONArray();
-        return usersDAO.getUsersByBookId(bookId);
+            return new Result<>("ID must be positive", null);
+        return new Result<>("", usersDAO.getUsersByBookId(bookId));
     }
 }

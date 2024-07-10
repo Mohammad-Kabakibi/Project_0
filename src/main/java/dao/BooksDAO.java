@@ -187,4 +187,19 @@ public class BooksDAO {
         }catch(Exception q){}
         return books;
     }
+
+    public boolean existingBook(String title) {
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            String sql = "select * from books where title = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, title);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            return rs.next();
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
 }

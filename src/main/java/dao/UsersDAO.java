@@ -132,8 +132,6 @@ public class UsersDAO {
                 users.put(jo);
             }
         }catch(Exception q){}
-
         return users;
-
     }
 }
