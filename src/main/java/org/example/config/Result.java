@@ -1,4 +1,4 @@
-package config;
+package org.example.config;
 
 public class Result<T> {
     //    static class status{

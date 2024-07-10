@@ -1,8 +1,8 @@
-package service;
+package org.example.service;
 
-import config.Result;
-import dao.BooksDAO;
-import model.Book;
+import org.example.config.Result;
+import org.example.dao.BooksDAO;
+import org.example.model.Book;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -18,8 +18,10 @@ public class BooksService {
     }
 
     public Result<Book> addBook(Book book) {
-        if(book.getPrice() < 0 || book.getTitle().length() < 2 || booksDAO.existingBook(book.getTitle()))
+        if(book.getPrice() < 0 || book.getTitle().length() < 2 )
             return new Result<>("Wrong Values", null);
+        if(booksDAO.existingBook(book.getTitle()))
+            return new Result<>("Book title already exists", null);
         return new Result<>("", booksDAO.addBook(book));
     }
 
@@ -42,7 +44,7 @@ public class BooksService {
         // Patch request...
         Book updated_book = null;
         if(book.getObj() != null){
-            old_img = book.getObj().getTitle()+"."+(book.getObj().getCover_img().split("\\."))[1];
+            old_img = book.getObj().getTitle().replaceAll(" ","_")+"."+(book.getObj().getCover_img().split("\\."))[1];
             if(new_book.has("title"))
                 book.getObj().setTitle(new_book.getString("title"));
             if(new_book.has("author_name"))
@@ -91,7 +93,7 @@ public class BooksService {
                 if(isDefaultImage(deleted_book.getCover_img()))
                     return deleted_book_result;
                 String ext = "."+(deleted_book.getCover_img().split("\\."))[1];
-                var cover_img = new File("upload/images/" + deleted_book.getTitle() + ext);
+                var cover_img = new File("upload/images/" + deleted_book.getTitle().replaceAll(" ","_") + ext);
                 if (cover_img.exists())
                     cover_img.delete();
             }catch (Exception q){

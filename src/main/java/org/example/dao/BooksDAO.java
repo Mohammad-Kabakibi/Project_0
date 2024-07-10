@@ -1,9 +1,9 @@
-package dao;
+package org.example.dao;
 
-import model.Book;
+import org.example.model.Book;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import util.ConnectionUtil;
+import org.example.util.ConnectionUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,8 +11,13 @@ import java.util.List;
 
 public class BooksDAO {
 
+    private Connection connection;
+
+    public BooksDAO(){
+        this.connection = ConnectionUtil.getConnection();
+    }
+
     public Book addBook(Book book) {
-        Connection connection = ConnectionUtil.getConnection();
         try {
             String sql = "insert into books(title, author_name, category, year, price, cover_img, summary)" +
                     " values(?, ?, ?, ?, ?, ?, ?);";
@@ -40,7 +45,6 @@ public class BooksDAO {
     }
 
     public Book getBookById(int book_id){
-        Connection connection = ConnectionUtil.getConnection();
         try {
             String sql = "select * from books where id = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -65,7 +69,6 @@ public class BooksDAO {
     }
 
     public List<Book> getAllBooks(){
-        Connection connection = ConnectionUtil.getConnection();
         try {
             String sql = "select * from books;";
             Statement statement = connection.createStatement();
@@ -92,7 +95,6 @@ public class BooksDAO {
     }
 
     public boolean deleteBookById(int book_id){
-        Connection connection = ConnectionUtil.getConnection();
         try {
             String sql = "delete from books where id = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -107,7 +109,6 @@ public class BooksDAO {
     }
 
     public Book updateBookById(int book_id, Book book){
-        Connection connection = ConnectionUtil.getConnection();
         try {
             String sql = "update books set title = ?, author_name = ?, category = ?, year = ?, price = ?" +
                     ", cover_img = ?, summary = ? where id = ? ;";
@@ -130,7 +131,6 @@ public class BooksDAO {
     }
 
     public JSONArray getBooksByUserId(int userId) {
-        Connection connection = ConnectionUtil.getConnection();
         JSONArray books = new JSONArray();
         try{
             String sql = "select books.id, title, author_name, category, year, price, cover_img, summary, copies " +
@@ -160,7 +160,6 @@ public class BooksDAO {
     }
 
     public JSONArray getMostKBooks(int k) {
-        Connection connection = ConnectionUtil.getConnection();
         JSONArray books = new JSONArray();
         try{
             String sql = "select books.id, title, author_name, category, year, price, cover_img, summary, count(bought_books.book_id) as copies " +
@@ -189,7 +188,6 @@ public class BooksDAO {
     }
 
     public boolean existingBook(String title) {
-        Connection connection = ConnectionUtil.getConnection();
         try {
             String sql = "select * from books where title = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

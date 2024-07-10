@@ -1,9 +1,9 @@
-package dao;
+package org.example.dao;
 
-import model.User;
+import org.example.model.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import util.ConnectionUtil;
+import org.example.util.ConnectionUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,8 +11,13 @@ import java.util.List;
 
 public class UsersDAO {
 
+    private Connection connection;
+
+    public UsersDAO(){
+        this.connection = ConnectionUtil.getConnection();
+    }
+
     public User addUser(User user) {
-        Connection connection = ConnectionUtil.getConnection();
         try {
             String sql = "insert into users(name, password, member_since) values(?, ?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -35,7 +40,6 @@ public class UsersDAO {
     }
 
     public User getUserById(int user_id){
-        Connection connection = ConnectionUtil.getConnection();
         try {
             String sql = "select * from users where id = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -56,7 +60,6 @@ public class UsersDAO {
     }
 
     public List<User> getAllUsers(){
-        Connection connection = ConnectionUtil.getConnection();
         try {
             String sql = "select * from users;";
             Statement statement = connection.createStatement();
@@ -79,7 +82,6 @@ public class UsersDAO {
     }
 
     public boolean deleteUserById(int user_id){
-        Connection connection = ConnectionUtil.getConnection();
         try {
             String sql = "delete from users where id = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -94,7 +96,6 @@ public class UsersDAO {
     }
 
     public User updateUserById(int user_id, User user){
-        Connection connection = ConnectionUtil.getConnection();
         try {
             String sql = "update users set name = ?, password = ?, member_since = ? where id = ? ;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -111,7 +112,7 @@ public class UsersDAO {
         return null;
     }
 
-    public JSONArray getUsersByBookId(int bookId) {Connection connection = ConnectionUtil.getConnection();
+    public JSONArray getUsersByBookId(int bookId) {
         JSONArray users = new JSONArray();
         try{
             String sql = "select users.id, name, member_since, copies " +

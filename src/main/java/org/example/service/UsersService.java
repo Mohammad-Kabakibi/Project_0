@@ -1,8 +1,8 @@
-package service;
+package org.example.service;
 
-import config.Result;
-import dao.UsersDAO;
-import model.User;
+import org.example.config.Result;
+import org.example.dao.UsersDAO;
+import org.example.model.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

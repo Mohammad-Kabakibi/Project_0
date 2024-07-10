@@ -1,18 +1,18 @@
-package controller;
+package org.example.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import config.Result;
+import org.example.config.Result;
 import io.javalin.Javalin;
 
 import io.javalin.http.Context;
 import io.javalin.http.staticfiles.Location;
-import model.Book;
-import model.User;
+import org.example.model.Book;
+import org.example.model.User;
 import org.apache.commons.io.FileUtils;
-import service.BooksService;
-import service.UsersService;
+import org.example.service.BooksService;
+import org.example.service.UsersService;
 
 import java.io.File;
 import java.sql.Date;
@@ -200,7 +200,7 @@ public class BooksStoreController {
                 var cover_img = context.uploadedFile("cover_img");
                 String file_name = null;
                 if (cover_img != null) {
-                    file_name = "images/" + book.getTitle() + cover_img.extension();
+                    file_name = "images/" + book.getTitle().replaceAll(" ","_") + cover_img.extension();
                     book.setCover_img(context.host() + "/" + file_name);
                 }
 
@@ -292,7 +292,7 @@ public class BooksStoreController {
                 var cover_img = context.uploadedFile("cover_img");
                 String file_name = null;
                 if (cover_img != null) {
-                    file_name = "images/" + jsonBody.getString("title") + cover_img.extension();
+                    file_name = "images/" + jsonBody.getString("title").replaceAll(" ","_") + cover_img.extension();
                     jsonBody.put("cover_img",context.host() + "/" + file_name);
                 }
 
