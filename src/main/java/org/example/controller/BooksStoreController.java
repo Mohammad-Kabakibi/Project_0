@@ -3,11 +3,11 @@ package org.example.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import org.example.config.Result;
 import io.javalin.Javalin;
 
 import io.javalin.http.Context;
 import io.javalin.http.staticfiles.Location;
+import org.example.exceptions.MyCustumException;
 import org.example.model.Book;
 import org.example.model.User;
 import org.apache.commons.io.FileUtils;
@@ -83,24 +83,17 @@ public class BooksStoreController {
         context.status(400);
     }
 
-    private void getUserById(Context context){
+    private void getUserById(Context context) {
         try{
             int user_id = Integer.parseInt(context.pathParam("id"));
-            Result<User> user = usersService.getUserById(user_id);
-            if(user.getObj() != null){
-                context.json(mapper.writeValueAsString(user.getObj()));
-            }
-            else{
-                context.json(mapper.writeValueAsString(user.getMsg())).status(400);
-            }
-            return;
-        }catch(JsonProcessingException e){
-            System.out.println(e.getMessage());
+            User user = usersService.getUserById(user_id);
+            context.json(mapper.writeValueAsString(user));
+        }catch(MyCustumException e){
+            context.json(e.getMsgObj()).status(400);
         }
-        catch(NumberFormatException e){
-            System.out.println(e.getMessage());
+        catch(Exception e){
+            context.status(400);
         }
-        context.status(400);
     }
 
     private void updateUserById(Context context){
@@ -109,51 +102,38 @@ public class BooksStoreController {
 
             JSONObject jsonBody = new JSONObject(context.body());
 
-            Result<User> updated_user = usersService.updateUserById(user_id, jsonBody);
-            if(updated_user.getObj() != null){
-                context.json(mapper.writeValueAsString(updated_user.getObj()));
-            }
-            else{
-                context.json(mapper.writeValueAsString(updated_user.getMsg())).status(400);
-            }
-            return;
-        }catch(Exception e){
-            System.out.println(e.getMessage());
+            User updated_user = usersService.updateUserById(user_id, jsonBody);
+            context.json(mapper.writeValueAsString(updated_user));
+        }catch(MyCustumException e){
+            context.json(e.getMsgObj()).status(400);
         }
-        context.status(400);
+        catch(Exception e){
+            context.status(400);
+        }
     }
 
     private void deleteUserById(Context context){
         try{
             int user_id = Integer.parseInt(context.pathParam("id"));
-            Result<User> deleted_user = usersService.deleteUserById(user_id);
-            if(deleted_user.getObj() != null){
-                context.json(mapper.writeValueAsString(deleted_user.getObj()));
-            }
-            else{
-                context.json(mapper.writeValueAsString(deleted_user.getMsg())).status(400);
-            }
-            return;
-        }catch(JsonProcessingException e){
-            System.out.println(e.getMessage());
+            User deleted_user = usersService.deleteUserById(user_id);
+            context.json(mapper.writeValueAsString(deleted_user));
+        }catch(MyCustumException e){
+            context.json(e.getMsgObj()).status(400);
         }
-        catch(NumberFormatException e){
-            System.out.println(e.getMessage());
+        catch(Exception e){
+            context.status(400);
         }
-        context.status(400);
     }
 
     private void registerNewUser(Context context){
         try{
             User user = mapper.readValue(context.body(), User.class);
-            Result<User> registeredUser = usersService.addUser(user);
-            if(registeredUser.getObj() == null){
-                context.json(mapper.writeValueAsString(registeredUser.getMsg())).status(400);
-            }
-            else{
-                context.json(mapper.writeValueAsString(registeredUser.getObj()));
-            }
-        }catch(JsonProcessingException e){
+            User registeredUser = usersService.addUser(user);
+            context.json(mapper.writeValueAsString(registeredUser));
+        }catch(MyCustumException e){
+            context.json(e.getMsgObj()).status(400);
+        }
+        catch(Exception e){
             context.status(400);
         }
     }
@@ -162,17 +142,13 @@ public class BooksStoreController {
         try{
             int book_id = Integer.parseInt(context.pathParam("id"));
             var jsonArr = usersService.getUsersByBookId(book_id);
-            if(jsonArr.getObj() == null){
-                context.json(mapper.writeValueAsString(jsonArr.getMsg())).status(400);
-            }
-            else{
-                context.json(jsonArr.getObj().toString());
-            }
-            return;
-        }catch(Exception e){
-            System.out.println(e.getMessage());
+            context.json(jsonArr.toString());
+        }catch(MyCustumException e){
+            context.json(e.getMsgObj()).status(400);
         }
-        context.status(400);
+        catch(Exception e){
+            context.status(400);
+        }
     }
 
     //============================ Books ====================================
@@ -202,29 +178,22 @@ public class BooksStoreController {
                     book.setCover_img(context.host() + file_name);
                 }
 
-                Result<Book> addedBook = booksService.addBook(book);
-                if (addedBook.getObj() == null) {
-                    context.json(mapper.writeValueAsString(addedBook.getMsg())).status(400);
-                } else {
-                    if (cover_img != null)
-                        FileUtils.copyInputStreamToFile(cover_img.content(), new File(UPLOAD_FOLDER + file_name));
-                    context.json(mapper.writeValueAsString(addedBook.getObj())).status(201);
-                }
+                Book addedBook = booksService.addBook(book);
+                if (cover_img != null)
+                    FileUtils.copyInputStreamToFile(cover_img.content(), new File(UPLOAD_FOLDER + file_name));
+                context.json(mapper.writeValueAsString(addedBook)).status(201);
             }
 
             else{
                 Book book = mapper.readValue(context.body(), Book.class);
                 book.setCover_img(context.host() + IMAGES_FOLDER + "default_cover_img.jpg");
-                Result<Book> addedBook = booksService.addBook(book);
-                if(addedBook.getObj() == null){
-                    context.json(mapper.writeValueAsString(addedBook.getMsg())).status(400);
-                }
-                else{
-                    context.json(mapper.writeValueAsString(addedBook.getObj()));
-                }
+                Book addedBook = booksService.addBook(book);
+                context.json(mapper.writeValueAsString(addedBook));
             }
-        }catch(Exception e){
-            System.out.println(e.getMessage());
+        }catch(MyCustumException e){
+            context.json(e.getMsgObj()).status(400);
+        }
+        catch(Exception e){
             context.status(400);
         }
     }
@@ -243,22 +212,17 @@ public class BooksStoreController {
     private void getBookById(Context context){
         try{
             int book_id = Integer.parseInt(context.pathParam("id"));
-            Result<Book> book = booksService.getBookById(book_id);
-            if(book.getObj() != null){
-                context.json(mapper.writeValueAsString(book.getObj()));
-            }
-            else{
-                context.json(mapper.writeValueAsString(book.getMsg())).status(400);
-            }
-            return;
-        }catch(JsonProcessingException e){
-            System.out.println(e.getMessage());
+            Book book = booksService.getBookById(book_id);
+            context.json(mapper.writeValueAsString(book));
+        }catch(MyCustumException e){
+            context.json(e.getMsgObj()).status(400);
         }
-        catch(NumberFormatException e){
+//        catch(NumberFormatException e){
+//            context.json("{message:ID must be number}").status(400);}
+        catch(Exception e){
             System.out.println(e.getMessage());
-            context.json("{message:ID must be number}").status(400);
+            context.status(400);
         }
-        context.status(400);
     }
 
     private void updateBookById(Context context){
@@ -287,66 +251,47 @@ public class BooksStoreController {
 //                    jsonBody.put("cover_img","");
                 }
 
-                Result<Book> updated_book = booksService.updateBookById(book_id, jsonBody, cover_img);
-                if (updated_book.getObj() == null) {
-                    context.json(mapper.writeValueAsString(updated_book.getMsg())).status(400);
-                } else {
-                    context.json(mapper.writeValueAsString(updated_book.getObj())).status(200);
-                }
-                return;
+                Book updated_book = booksService.updateBookById(book_id, jsonBody, cover_img);
+                context.json(mapper.writeValueAsString(updated_book)).status(200);
             }
             else{
                 JSONObject jsonBody = new JSONObject(context.body());
 
-                Result<Book> updated_book = booksService.updateBookById(book_id, jsonBody, null);
-                if (updated_book.getObj() != null) {
-                    context.json(mapper.writeValueAsString(updated_book.getObj()));
-                } else {
-                    context.json(mapper.writeValueAsString(updated_book.getMsg())).status(400);
-                }
-                return;
+                Book updated_book = booksService.updateBookById(book_id, jsonBody, null);
+                context.json(mapper.writeValueAsString(updated_book));
             }
-        }catch(Exception e){
-            System.out.println(e.getMessage());
+        }catch(MyCustumException e){
+            context.json(e.getMsgObj()).status(400);
         }
-        context.status(400);
+        catch(Exception e){
+            context.status(400);
+        }
     }
 
     private void deleteBookById(Context context){
         try{
             int book_id = Integer.parseInt(context.pathParam("id"));
-            Result<Book> deleted_book = booksService.deleteBookById(book_id);
-            if(deleted_book.getObj() != null){
-                context.json(mapper.writeValueAsString(deleted_book.getObj()));
-            }
-            else{
-                context.json(mapper.writeValueAsString(deleted_book.getMsg())).status(400);
-            }
-            return;
-        }catch(JsonProcessingException e){
-            System.out.println(e.getMessage());
+            Book deleted_book = booksService.deleteBookById(book_id);
+            context.json(mapper.writeValueAsString(deleted_book));
+        }catch(MyCustumException e){
+            context.json(e.getMsgObj()).status(400);
         }
-        catch(NumberFormatException e){
-            System.out.println(e.getMessage());
+        catch(Exception e){
+            context.status(400);
         }
-        context.status(400);
     }
 
     private void getBooksByUserId(Context context) {
         try{
             int user_id = Integer.parseInt(context.pathParam("id"));
             var books = booksService.getBooksByUserId(user_id);
-            if(books.getObj() == null){
-                context.json(mapper.writeValueAsString(books.getMsg())).status(400);
-            }
-            else{
-                context.json(books.getObj().toString());
-            }
-            return;
-        }catch(Exception q){
-            System.out.println(q.getMessage());
+            context.json(books.toString());
+        }catch(MyCustumException e){
+            context.json(e.getMsgObj()).status(400);
         }
-        context.status(400);
+        catch(Exception e){
+            context.status(400);
+        }
     }
 
     private void getMostKBooks(Context context) {
@@ -356,16 +301,12 @@ public class BooksStoreController {
                 k = Integer.parseInt(context.pathParam("k"));
             }
             var books = booksService.getMostKBooks(k);
-            if(books.getObj() == null){
-                context.json(mapper.writeValueAsString(books.getMsg())).status(400);
-            }
-            else{
-                context.json(books.getObj().toString());
-            }
-            return;
-        }catch(Exception q){
-            System.out.println(q.getMessage());
+            context.json(books.toString());
+        }catch(MyCustumException e){
+            context.json(e.getMsgObj()).status(400);
         }
-        context.status(400);
+        catch(Exception e){
+            context.status(400);
+        }
     }
 }

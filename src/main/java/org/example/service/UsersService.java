@@ -1,7 +1,7 @@
 package org.example.service;
 
-import org.example.config.Result;
 import org.example.dao.UsersDAO;
+import org.example.exceptions.*;
 import org.example.model.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,66 +17,55 @@ public class UsersService {
         this.usersDAO = new UsersDAO();
     }
 
-    public Result<User> addUser(User user) {
+    public User addUser(User user) throws MyCustumException {
         if(user.getName().length() > 100 || user.getName().length() < 2 || user.getPassword().length() < 2 || user.getPassword().length() > 35)
-            return new Result<>("Wrong Values", null);
+            throw new InvalidValuesException();
         if(user.getMember_since() == null)
             user.setMember_since(Date.valueOf(LocalDateTime.now().toLocalDate().toString()));
-        User added_user = usersDAO.addUser(user);
-        if(added_user == null)
-            return new Result<>("Something went wrong", null);
-        return new Result<>("", added_user);
+        return usersDAO.addUser(user);
     }
 
     public List<User> getAllUsers() {
         return usersDAO.getAllUsers();
     }
 
-    public Result<User> getUserById(int userId) {
+    public User getUserById(int userId) throws MyCustumException {
         if(userId <= 0)
-            return new Result<>("ID must be positive", null);
-        User user = usersDAO.getUserById(userId);
-        if(user == null)
-            return new Result<>("User (ID:"+userId+") doesn't exist", null);
-        return new Result<>("", user);
+            throw new NigativeNumException();
+        return usersDAO.getUserById(userId);
     }
 
-    public Result<User> updateUserById(int userId, JSONObject new_user) {
-        Result<User> user = getUserById(userId);
-        if(user.getObj() != null){
-            if(new_user.has("name")) {
-                String name = new_user.getString("name");
-                if(name.length() > 100 || name.length() < 2)
-                    return new Result<>("Name must be between 2-100 characters", null);
-                user.getObj().setName(name);
-            }
-            if(new_user.has("password")){
-                String password = new_user.getString("password");
-                if(password.length() > 45 || password.length() < 2)
-                    return new Result<>("Password must be between 2-45 characters", null);
-                user.getObj().setPassword(password);
-            }
-            if(new_user.has("member_since"))
-                user.getObj().setMember_since(Date.valueOf(new_user.getString("member_since")));
+    public User updateUserById(int userId, JSONObject new_user) throws MyCustumException {
+        User user = getUserById(userId);
+        if(new_user.has("name")) {
+            String name = new_user.getString("name");
+            if(name.length() > 100 || name.length() < 2)
+                throw new UserInvalidNameException();
+            user.setName(name);
         }
-        User updated_user = usersDAO.updateUserById(userId, user.getObj());
-        if(updated_user == null)
-            return new Result<>("Something went wrong", null);
-        return new Result<>("", updated_user);
+        if(new_user.has("password")){
+            String password = new_user.getString("password");
+            if(password.length() > 50 || password.length() < 4)
+                throw new UserInvalidPasswordException();
+            user.setPassword(password);
+        }
+        if(new_user.has("member_since"))
+            user.setMember_since(Date.valueOf(new_user.getString("member_since")));
+
+        return usersDAO.updateUserById(userId, user);
     }
 
-    public Result<User> deleteUserById(int userId) {
+    public User deleteUserById(int userId) throws MyCustumException {
         if(userId <= 0)
-            return new Result<>("ID must be positive", null);
+            throw new NigativeNumException();
         User deleted_user = usersDAO.getUserById(userId);
-        if(usersDAO.deleteUserById(userId))
-            return new Result<>("", deleted_user);
-        return new Result<>("User (ID:"+userId+") doesn't exist", null);
+        usersDAO.deleteUserById(userId);
+        return deleted_user;
     }
 
-    public Result<JSONArray> getUsersByBookId(int bookId) {
+    public JSONArray getUsersByBookId(int bookId) throws MyCustumException {
         if(bookId <= 0)
-            return new Result<>("ID must be positive", null);
-        return new Result<>("", usersDAO.getUsersByBookId(bookId));
+            throw new NigativeNumException();
+        return usersDAO.getUsersByBookId(bookId);
     }
 }

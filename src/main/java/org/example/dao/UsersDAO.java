@@ -1,5 +1,7 @@
 package org.example.dao;
 
+import org.example.exceptions.MyCustumException;
+import org.example.exceptions.UserNotFoundException;
 import org.example.model.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,7 +19,7 @@ public class UsersDAO {
         this.connection = ConnectionUtil.getConnection();
     }
 
-    public User addUser(User user) {
+    public User addUser(User user) throws MyCustumException {
         try {
             String sql = "insert into users(name, password, member_since) values(?, ?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -32,14 +34,13 @@ public class UsersDAO {
                 user.setId(user_id);
                 return user;
             }
-        }catch(
-                SQLException e){
+        }catch(SQLException e){
             System.out.println(e.getMessage());
         }
-        return null;
+        throw new MyCustumException();
     }
 
-    public User getUserById(int user_id){
+    public User getUserById(int user_id) throws MyCustumException{
         try {
             String sql = "select * from users where id = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -55,18 +56,18 @@ public class UsersDAO {
             }
         }catch(SQLException e){
             System.out.println(e.getMessage());
+            throw new MyCustumException();
         }
-        return null;
+        throw new UserNotFoundException();
     }
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
+        ArrayList<User> users = new ArrayList<>();
         try {
             String sql = "select * from users;";
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery(sql);
-
-            ArrayList<User> users = new ArrayList<>();
 
             while(rs.next()){
                 users.add(new User(rs.getInt("id"),
@@ -78,24 +79,25 @@ public class UsersDAO {
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
-        return null;
+        return users;
     }
 
-    public boolean deleteUserById(int user_id){
+    public void deleteUserById(int user_id) throws MyCustumException {
         try {
             String sql = "delete from users where id = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, user_id);
 
             int deleted_rows = preparedStatement.executeUpdate();
-            return deleted_rows != 0; // should be 1
+//            return deleted_rows != 0; // should be 1
+            return;
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
-        return false;
+        throw new MyCustumException();
     }
 
-    public User updateUserById(int user_id, User user){
+    public User updateUserById(int user_id, User user) throws MyCustumException{
         try {
             String sql = "update users set name = ?, password = ?, member_since = ? where id = ? ;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -109,10 +111,10 @@ public class UsersDAO {
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
-        return null;
+        throw new MyCustumException();
     }
 
-    public JSONArray getUsersByBookId(int bookId) {
+    public JSONArray getUsersByBookId(int bookId) throws MyCustumException {
         JSONArray users = new JSONArray();
         try{
             String sql = "select users.id, name, member_since, copies " +
@@ -132,7 +134,7 @@ public class UsersDAO {
                 jo.put("copies", rs.getInt("copies"));
                 users.put(jo);
             }
-        }catch(Exception q){}
+        }catch(Exception q){throw new MyCustumException();}
         return users;
     }
 }

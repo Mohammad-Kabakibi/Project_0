@@ -1,5 +1,7 @@
 package org.example.dao;
 
+import org.example.exceptions.BookNotFoundException;
+import org.example.exceptions.MyCustumException;
 import org.example.model.Book;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,7 +19,7 @@ public class BooksDAO {
         this.connection = ConnectionUtil.getConnection();
     }
 
-    public Book addBook(Book book) {
+    public Book addBook(Book book) throws MyCustumException {
         try {
             String sql = "insert into books(title, author_name, category, year, price, cover_img, summary)" +
                     " values(?, ?, ?, ?, ?, ?, ?);";
@@ -37,14 +39,13 @@ public class BooksDAO {
                 book.setId(book_id);
                 return book;
             }
-        }catch(
-                SQLException e){
+        }catch(SQLException e){
             System.out.println(e.getMessage());
         }
-        return null;
+        throw new MyCustumException();
     }
 
-    public Book getBookById(int book_id){
+    public Book getBookById(int book_id) throws MyCustumException {
         try {
             String sql = "select * from books where id = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -62,20 +63,20 @@ public class BooksDAO {
                         rs.getString("summary"));
                 return book;
             }
+            throw new BookNotFoundException();
         }catch(SQLException e){
             System.out.println(e.getMessage());
+            throw new MyCustumException();
         }
-        return null;
     }
 
-    public List<Book> getAllBooks(){
+    public List<Book> getAllBooks() {
+        ArrayList<Book> books = new ArrayList<>();
         try {
             String sql = "select * from books;";
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery(sql);
-
-            ArrayList<Book> books = new ArrayList<>();
 
             while(rs.next()){
                 books.add(new Book(rs.getInt("id"),
@@ -91,24 +92,24 @@ public class BooksDAO {
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
-        return null;
+        return books;
     }
 
-    public boolean deleteBookById(int book_id){
+    public void deleteBookById(int book_id) throws MyCustumException {
         try {
             String sql = "delete from books where id = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, book_id);
 
             int deleted_rows = preparedStatement.executeUpdate();
-            return deleted_rows != 0; // should be 1
+//            return deleted_rows != 0; // should be 1
         }catch(SQLException e){
             System.out.println(e.getMessage());
+            throw new MyCustumException();
         }
-        return false;
     }
 
-    public Book updateBookById(int book_id, Book book){
+    public Book updateBookById(int book_id, Book book) throws MyCustumException {
         try {
             String sql = "update books set title = ?, author_name = ?, category = ?, year = ?, price = ?" +
                     ", cover_img = ?, summary = ? where id = ? ;";
@@ -126,8 +127,8 @@ public class BooksDAO {
             return book;
         }catch(SQLException e){
             System.out.println(e.getMessage());
+            throw new MyCustumException();
         }
-        return null;
     }
 
     public JSONArray getBooksByUserId(int userId) {
@@ -159,7 +160,7 @@ public class BooksDAO {
         return books;
     }
 
-    public JSONArray getMostKBooks(int k) {
+    public JSONArray getMostKBooks(int k) throws MyCustumException {
         JSONArray books = new JSONArray();
         try{
             String sql = "select books.id, title, author_name, category, year, price, cover_img, summary, sum(bought_books.copies) as copies " +
@@ -187,7 +188,7 @@ public class BooksDAO {
         return books;
     }
 
-    public boolean existingBook(String title) {
+    public boolean existingBook(String title) throws MyCustumException {
         try {
             String sql = "select * from books where title = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -197,7 +198,7 @@ public class BooksDAO {
             return rs.next();
         }catch(SQLException e){
             System.out.println(e.getMessage());
+            throw new MyCustumException();
         }
-        return false;
     }
 }

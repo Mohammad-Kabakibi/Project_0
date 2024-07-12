@@ -1,8 +1,7 @@
 package org.example;
 
-
-import org.example.controller.BooksStoreController;
 import io.javalin.Javalin;
+import org.example.controller.BooksStoreController;
 import org.example.service.BooksService;
 import org.example.service.UsersService;
 
