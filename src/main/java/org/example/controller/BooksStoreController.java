@@ -198,7 +198,7 @@ public class BooksStoreController {
                 var cover_img = context.uploadedFile("cover_img");
                 String file_name = null;
                 if (cover_img != null) {
-                    file_name = IMAGES_FOLDER + book.getTitle().replaceAll(" ","_") + cover_img.extension();
+                    file_name = IMAGES_FOLDER + book.getTitle().replaceAll("[^a-zA-Z0-9]", "_") + cover_img.extension();
                     book.setCover_img(context.host() + file_name);
                 }
 
@@ -284,6 +284,7 @@ public class BooksStoreController {
                 var cover_img = context.uploadedFile("cover_img");
                 if (cover_img != null) {
                     jsonBody.put("cover_img",context.host());
+//                    jsonBody.put("cover_img","");
                 }
 
                 Result<Book> updated_book = booksService.updateBookById(book_id, jsonBody, cover_img);

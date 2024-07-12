@@ -50,7 +50,7 @@ public class BooksService {
         // Patch request...
         Book updated_book = null;
         if(book.getObj() != null){
-            old_img = book.getObj().getTitle().replaceAll(" ","_")+"."+(book.getObj().getCover_img().split("\\."))[1];
+            old_img = book.getObj().getTitle().replaceAll("[^a-zA-Z0-9]","_")+"."+(book.getObj().getCover_img().split("\\."))[1];
             if(new_book.has("title"))
                 book.getObj().setTitle(new_book.getString("title"));
             if(new_book.has("author_name"))
@@ -64,7 +64,7 @@ public class BooksService {
             if(new_book.has("price"))
                 book.getObj().setPrice(new_book.getDouble("price"));
             if(new_book.has("cover_img")) {
-                file_name = book.getObj().getTitle().replaceAll(" ","_") + new_img.extension();
+                file_name = book.getObj().getTitle().replaceAll("[^a-zA-Z0-9]","_") + new_img.extension();
                 book.getObj().setCover_img(new_book.getString("cover_img")+IMAGES_FOLDER+file_name);
             }
             updated_book = booksDAO.updateBookById(bookId, book.getObj());
@@ -102,7 +102,7 @@ public class BooksService {
                 if(isDefaultImage(deleted_book.getCover_img()))
                     return deleted_book_result;
                 String ext = "."+(deleted_book.getCover_img().split("\\."))[1];
-                var cover_img = new File(UPLOAD_FOLDER + IMAGES_FOLDER + deleted_book.getTitle().replaceAll(" ","_") + ext);
+                var cover_img = new File(UPLOAD_FOLDER + IMAGES_FOLDER + deleted_book.getTitle().replaceAll("[^a-zA-Z0-9]","_") + ext);
                 if (cover_img.exists())
                     cover_img.delete();
             }catch (Exception q){
