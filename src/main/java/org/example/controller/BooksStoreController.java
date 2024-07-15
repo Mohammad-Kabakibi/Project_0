@@ -20,8 +20,7 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import static org.example.util.StaticFilesUtil.UPLOAD_FOLDER;
-import static org.example.util.StaticFilesUtil.IMAGES_FOLDER;
+import static org.example.util.StaticFilesUtil.*;
 
 public class BooksStoreController {
     private BooksService booksService;
@@ -89,7 +88,7 @@ public class BooksStoreController {
             User user = usersService.getUserById(user_id);
             context.json(mapper.writeValueAsString(user));
         }catch(MyCustumException e){
-            context.json(e.getMsgObj()).status(400);
+            context.json(e.getMessage()).status(e.getStatus());
         }
         catch(Exception e){
             context.status(400);
@@ -105,7 +104,7 @@ public class BooksStoreController {
             User updated_user = usersService.updateUserById(user_id, jsonBody);
             context.json(mapper.writeValueAsString(updated_user));
         }catch(MyCustumException e){
-            context.json(e.getMsgObj()).status(400);
+            context.json(e.getMessage()).status(e.getStatus());
         }
         catch(Exception e){
             context.status(400);
@@ -118,7 +117,7 @@ public class BooksStoreController {
             User deleted_user = usersService.deleteUserById(user_id);
             context.json(mapper.writeValueAsString(deleted_user));
         }catch(MyCustumException e){
-            context.json(e.getMsgObj()).status(400);
+            context.json(e.getMessage()).status(e.getStatus());
         }
         catch(Exception e){
             context.status(400);
@@ -131,7 +130,7 @@ public class BooksStoreController {
             User registeredUser = usersService.addUser(user);
             context.json(mapper.writeValueAsString(registeredUser));
         }catch(MyCustumException e){
-            context.json(e.getMsgObj()).status(400);
+            context.json(e.getMessage()).status(e.getStatus());
         }
         catch(Exception e){
             context.status(400);
@@ -144,7 +143,7 @@ public class BooksStoreController {
             var jsonArr = usersService.getUsersByBookId(book_id);
             context.json(jsonArr.toString());
         }catch(MyCustumException e){
-            context.json(e.getMsgObj()).status(400);
+            context.json(e.getMessage()).status(e.getStatus());
         }
         catch(Exception e){
             context.status(400);
@@ -173,25 +172,27 @@ public class BooksStoreController {
 
                 var cover_img = context.uploadedFile("cover_img");
                 String file_name = null;
-                if (cover_img != null) {
+                if (cover_img != null && cover_img.size()>0) {
                     file_name = IMAGES_FOLDER + book.getTitle().replaceAll("[^a-zA-Z0-9]", "_") + cover_img.extension();
                     book.setCover_img(context.host() + file_name);
                 }
+                else
+                    book.setCover_img(context.host() + DEFAULT_COVER_IMAGE);
 
                 Book addedBook = booksService.addBook(book);
-                if (cover_img != null)
+                if (cover_img != null && cover_img.size()>0)
                     FileUtils.copyInputStreamToFile(cover_img.content(), new File(UPLOAD_FOLDER + file_name));
                 context.json(mapper.writeValueAsString(addedBook)).status(201);
             }
 
             else{
                 Book book = mapper.readValue(context.body(), Book.class);
-                book.setCover_img(context.host() + IMAGES_FOLDER + "default_cover_img.jpg");
+                book.setCover_img(context.host() + DEFAULT_COVER_IMAGE);
                 Book addedBook = booksService.addBook(book);
                 context.json(mapper.writeValueAsString(addedBook));
             }
         }catch(MyCustumException e){
-            context.json(e.getMsgObj()).status(400);
+            context.json(e.getMessage()).status(e.getStatus());
         }
         catch(Exception e){
             context.status(400);
@@ -215,7 +216,7 @@ public class BooksStoreController {
             Book book = booksService.getBookById(book_id);
             context.json(mapper.writeValueAsString(book));
         }catch(MyCustumException e){
-            context.json(e.getMsgObj()).status(400);
+            context.json(e.getMessage()).status(e.getStatus());
         }
 //        catch(NumberFormatException e){
 //            context.json("{message:ID must be number}").status(400);}
@@ -246,7 +247,7 @@ public class BooksStoreController {
                     jsonBody.put("price", Double.parseDouble(context.formParam("price")));
 
                 var cover_img = context.uploadedFile("cover_img");
-                if (cover_img != null) {
+                if (cover_img != null && cover_img.size() > 0) {
                     jsonBody.put("cover_img",context.host());
 //                    jsonBody.put("cover_img","");
                 }
@@ -261,7 +262,7 @@ public class BooksStoreController {
                 context.json(mapper.writeValueAsString(updated_book));
             }
         }catch(MyCustumException e){
-            context.json(e.getMsgObj()).status(400);
+            context.json(e.getMessage()).status(e.getStatus());
         }
         catch(Exception e){
             context.status(400);
@@ -274,7 +275,7 @@ public class BooksStoreController {
             Book deleted_book = booksService.deleteBookById(book_id);
             context.json(mapper.writeValueAsString(deleted_book));
         }catch(MyCustumException e){
-            context.json(e.getMsgObj()).status(400);
+            context.json(e.getMessage()).status(e.getStatus());
         }
         catch(Exception e){
             context.status(400);
@@ -287,7 +288,7 @@ public class BooksStoreController {
             var books = booksService.getBooksByUserId(user_id);
             context.json(books.toString());
         }catch(MyCustumException e){
-            context.json(e.getMsgObj()).status(400);
+            context.json(e.getMessage()).status(e.getStatus());
         }
         catch(Exception e){
             context.status(400);
@@ -303,7 +304,7 @@ public class BooksStoreController {
             var books = booksService.getMostKBooks(k);
             context.json(books.toString());
         }catch(MyCustumException e){
-            context.json(e.getMsgObj()).status(400);
+            context.json(e.getMessage()).status(e.getStatus());
         }
         catch(Exception e){
             context.status(400);

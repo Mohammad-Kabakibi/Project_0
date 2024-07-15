@@ -1,6 +1,7 @@
 package org.example.dao;
 
 import org.example.exceptions.BookNotFoundException;
+import org.example.exceptions.BookTitleExistsException;
 import org.example.exceptions.MyCustumException;
 import org.example.model.Book;
 import org.json.JSONArray;
@@ -63,7 +64,7 @@ public class BooksDAO {
                         rs.getString("summary"));
                 return book;
             }
-            throw new BookNotFoundException();
+            throw new BookNotFoundException(book_id);
         }catch(SQLException e){
             System.out.println(e.getMessage());
             throw new MyCustumException();
@@ -110,6 +111,8 @@ public class BooksDAO {
     }
 
     public Book updateBookById(int book_id, Book book) throws MyCustumException {
+        if(existingBook(book.getTitle(), book_id))
+            throw new BookTitleExistsException();
         try {
             String sql = "update books set title = ?, author_name = ?, category = ?, year = ?, price = ?" +
                     ", cover_img = ?, summary = ? where id = ? ;";
@@ -160,7 +163,7 @@ public class BooksDAO {
         return books;
     }
 
-    public JSONArray getMostKBooks(int k) throws MyCustumException {
+    public JSONArray getMostKBooks(int k) {
         JSONArray books = new JSONArray();
         try{
             String sql = "select books.id, title, author_name, category, year, price, cover_img, summary, sum(bought_books.copies) as copies " +
@@ -193,6 +196,20 @@ public class BooksDAO {
             String sql = "select * from books where title = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, title);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            return rs.next();
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            throw new MyCustumException();
+        }
+    }
+    public boolean existingBook(String title, int id) throws MyCustumException {
+        try {
+            String sql = "select * from books where title = ? and id <> ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, title);
+            preparedStatement.setInt(2, id);
 
             ResultSet rs = preparedStatement.executeQuery();
             return rs.next();
