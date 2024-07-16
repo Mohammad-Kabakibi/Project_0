@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.sql.Date;
+import java.time.Instant;
 import java.util.List;
 
 import static org.example.util.StaticFilesUtil.*;
@@ -111,5 +112,35 @@ public class BooksService {
 
     private boolean isDefaultImage(String cover_img){
         return cover_img.endsWith(DEFAULT_COVER_IMAGE);
+    }
+
+    public List<Book> getBooksByDateAfter(Date date) throws InvalidDateException {
+        if(date.after(Date.from(Instant.now()))){
+            throw new InvalidDateException("Invalid Date: Date Cannot Be In The Future.");
+        }
+        return booksDAO.getBooksByDateAfter(date);
+    }
+
+    public List<Book> getBooksByDateBefore(Date date) {
+        return booksDAO.getBooksByDateBefore(date);
+    }
+
+    public JSONArray getMostKBooksAfter(Date date, int k) throws InvalidDateException {
+        if(date.after(Date.from(Instant.now()))){
+            throw new InvalidDateException("Invalid Date: Date Cannot Be In The Future.");
+        }
+        return booksDAO.getMostKBooksAfter(date, k);
+    }
+
+    public JSONArray getMostKBooksBefore(Date date, int k) {
+        return booksDAO.getMostKBooksBefore(date, k);
+    }
+
+    public JSONArray getMostKBooksBetween(Date date1, Date date2, int k) throws InvalidDateException {
+        if(date1.after(Date.from(Instant.now())))
+            throw new InvalidDateException("Invalid Date: Date1 Cannot Be In The Future.");
+        if(date1.after(date2))
+            throw new InvalidDateException("Invalid Date: Date1 Should Be After Date2.");
+        return booksDAO.getMostKBooksBetween(date1, date2, k);
     }
 }

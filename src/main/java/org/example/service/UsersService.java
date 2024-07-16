@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.sql.Date;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -67,5 +68,16 @@ public class UsersService {
         if(bookId <= 0)
             throw new NigativeNumException();
         return usersDAO.getUsersByBookId(bookId);
+    }
+
+    public JSONArray getUsersByDateAfter(Date date) throws InvalidDateException {
+        if(date.after(Date.from(Instant.now()))){
+            throw new InvalidDateException("Invalid Date: Date Cannot Be In The Future.");
+        }
+        return usersDAO.getUsersByDateAfter(date);
+    }
+
+    public JSONArray getUsersByDateBefore(Date date) {
+        return usersDAO.getUsersByDateBefore(date);
     }
 }

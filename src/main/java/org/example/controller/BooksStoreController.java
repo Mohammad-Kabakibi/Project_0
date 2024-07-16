@@ -7,7 +7,7 @@ import io.javalin.Javalin;
 
 import io.javalin.http.Context;
 import io.javalin.http.staticfiles.Location;
-import org.example.exceptions.MyCustumException;
+import org.example.exceptions.*;
 import org.example.model.Book;
 import org.example.model.User;
 import org.apache.commons.io.FileUtils;
@@ -15,9 +15,14 @@ import org.example.service.BooksService;
 import org.example.service.UsersService;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.sql.Date;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import static org.example.util.StaticFilesUtil.*;
@@ -50,26 +55,98 @@ public class BooksStoreController {
             });
         });
 
-        app.get("users", this::getAllUsers);
-        app.get("users/{id}", this::getUserById);
-        app.get("users/{id}/books", this::getBooksByUserId);
-        app.post("users", this::registerNewUser);
-        app.patch("users/{id}", this::updateUserById);
-        app.delete("users/{id}", this::deleteUserById);
+        app.before("app/*",this::authorize);
+        app.before("images/*",this::authorize);
 
-        app.get("books", this::getAllBooks);
-        app.get("books/most_selling/{k}", this::getMostKBooks);
-        app.get("books/most_selling", this::getMostKBooks);
-        app.get("books/{id}", this::getBookById);
-        app.get("books/{id}/users", this::getUsersByBookId);
-        app.post("books", this::addBook);
-        app.patch("books/{id}", this::updateBookById);
-        app.delete("books/{id}", this::deleteBookById);
+        app.get("login", context -> context.result("login page..."));
+        app.post("login", this::login);
+
+        app.get("app/users", this::getAllUsers);
+        app.get("app/users/{id}", this::getUserById);
+        app.get("app/users/after/{date}", this::getUsersByDateAfter);
+        app.get("app/users/before/{date}", this::getUsersByDateBefore);
+        app.get("app/users/{id}/books", this::getBooksByUserId);
+        app.post("app/users", this::registerNewUser);
+        app.patch("app/users/{id}", this::updateUserById);
+        app.delete("app/users/{id}", this::deleteUserById);
+
+        app.get("app/books", this::getAllBooks);
+        app.get("app/books/most_selling/{k}", this::getMostKBooks);
+        app.get("app/books/most_selling", this::getMostKBooks);
+        app.get("app/books/most_selling/{k}/after/{date}", this::getMostKBooksAfter);
+        app.get("app/books/most_selling/after/{date}", this::getMostKBooksAfter);
+        app.get("app/books/most_selling/{k}/before/{date}", this::getMostKBooksBefore);
+        app.get("app/books/most_selling/before/{date}", this::getMostKBooksBefore);
+        app.get("app/books/most_selling/between/{date1}/{date2}", this::getMostKBooksBetween);
+        app.get("app/books/most_selling/{k}/between/{date1}/{date2}", this::getMostKBooksBetween);
+        app.get("app/books/{id}", this::getBookById);
+        app.get("app/books/{id}/users", this::getUsersByBookId);
+        app.get("app/books/before/{date}", this::getBooksByDateBefore);
+        app.get("app/books/after/{date}", this::getBooksByDateAfter);
+        app.post("app/books", this::addBook);
+        app.patch("app/books/{id}", this::updateBookById);
+        app.delete("app/books/{id}", this::deleteBookById);
 
         return app;
     }
 
 
+    private void login(Context context) throws MyCustumException {
+        // admins page
+        try {
+            var jo = new JSONObject(context.body());
+            if (jo.has("username") && jo.has("password")) {
+                if (jo.getString("username").equals("admin") && jo.getString("password").equals("123")) {
+                    var token_object = new JSONObject();
+                    String token = new String(Base64.getEncoder().encode(jo.getString("username").getBytes()), "UTF-8");
+                    token_object.put("token", token);
+                    tokens.put(jo.getString("username"), token);
+                    context.json(token_object.toString());
+                }
+                else
+                    throw new InvalidCredentialsException();
+            }
+            else
+                throw new MissingCredentialsException();
+        }catch (JSONException | UnsupportedEncodingException q){
+            context.status(400);
+        }catch (MyCustumException q){
+            context.json(q.getMessage()).status(q.getStatus());
+        }
+    }
+
+    private void authorize(Context context){
+        try {
+            if (context.headerMap().containsKey("Authorization")) {
+                String[] arr = context.headerMap().get("Authorization").split(" ");
+                if(arr.length < 2)
+                    throw new InvalidTokenFormatException(); // should be [ Bearer <token> ]
+                String token = arr[1];
+//                if (isValidToken(token))
+//                    return;
+                isValidToken(token);
+            }
+            else
+                throw new UnAuthorizedException();
+        }catch (MyCustumException q){
+            context.redirect("/login");
+//            context.json(q.getMessage()).status(q.getStatus());
+        }
+    }
+
+    Map<String, String> tokens = new HashMap<>();
+
+    private boolean isValidToken(String token) throws InvalidTokenException {
+        for(String t : tokens.values()){
+            if(t.equals(token))
+                return true;
+        }
+//        return false;
+        throw new InvalidTokenException();
+    }
+
+
+    //============================ Users ====================================
 
     private void getAllUsers(Context context){
         try{
@@ -142,6 +219,32 @@ public class BooksStoreController {
             int book_id = Integer.parseInt(context.pathParam("id"));
             var jsonArr = usersService.getUsersByBookId(book_id);
             context.json(jsonArr.toString());
+        }catch(MyCustumException e){
+            context.json(e.getMessage()).status(e.getStatus());
+        }
+        catch(Exception e){
+            context.status(400);
+        }
+    }
+
+    private void getUsersByDateAfter(Context context) {
+        try{
+            Date date = valueOf(context.pathParam("date"));
+            var users = usersService.getUsersByDateAfter(date);
+            context.json(users.toString());
+        }catch(MyCustumException e){
+            context.json(e.getMessage()).status(e.getStatus());
+        }
+        catch(Exception e){
+            context.status(400);
+        }
+    }
+
+    private void getUsersByDateBefore(Context context) {
+        try{
+            Date date = valueOf(context.pathParam("date"));
+            var users = usersService.getUsersByDateBefore(date);
+            context.json(users.toString());
         }catch(MyCustumException e){
             context.json(e.getMessage()).status(e.getStatus());
         }
@@ -302,6 +405,90 @@ public class BooksStoreController {
                 k = Integer.parseInt(context.pathParam("k"));
             }
             var books = booksService.getMostKBooks(k);
+            context.json(books.toString());
+        }catch(MyCustumException e){
+            context.json(e.getMessage()).status(e.getStatus());
+        }
+        catch(Exception e){
+            context.status(400);
+        }
+    }
+
+    private Date valueOf(String date) throws InvalidDateException {
+        try{
+            return Date.valueOf(date);
+        }catch (Exception q){
+            throw new InvalidDateException();
+        }
+    }
+
+    private void getBooksByDateAfter(Context context) {
+        try{
+            Date date = valueOf(context.pathParam("date"));
+            var books = booksService.getBooksByDateAfter(date);
+            context.json(mapper.writeValueAsString(books));
+        }catch(MyCustumException e){
+            context.json(e.getMessage()).status(e.getStatus());
+        }
+        catch(Exception e){
+            context.status(400);
+        }
+    }
+
+    private void getBooksByDateBefore(Context context) {
+        try{
+            Date date = valueOf(context.pathParam("date"));
+            var books = booksService.getBooksByDateBefore(date);
+            context.json(mapper.writeValueAsString(books));
+        }catch(MyCustumException e){
+            context.json(e.getMessage()).status(e.getStatus());
+        }
+        catch(Exception e){
+            context.status(400);
+        }
+    }
+
+    private void getMostKBooksAfter(Context context) {
+        try{
+            int k = 3;
+            if(context.pathParamMap().containsKey("k")){
+                k = Integer.parseInt(context.pathParam("k"));
+            }
+            Date date = valueOf(context.pathParam("date"));
+            var books = booksService.getMostKBooksAfter(date, k);
+            context.json(books.toString());
+        }catch(MyCustumException e){
+            context.json(e.getMessage()).status(e.getStatus());
+        }
+        catch(Exception e){
+            context.status(400);
+        }
+    }
+    private void getMostKBooksBefore(Context context) {
+        try{
+            int k = 3;
+            if(context.pathParamMap().containsKey("k")){
+                k = Integer.parseInt(context.pathParam("k"));
+            }
+            Date date = valueOf(context.pathParam("date"));
+            var books = booksService.getMostKBooksBefore(date, k);
+            context.json(books.toString());
+        }catch(MyCustumException e){
+            context.json(e.getMessage()).status(e.getStatus());
+        }
+        catch(Exception e){
+            context.status(400);
+        }
+    }
+    private void getMostKBooksBetween(Context context) {
+        try{
+            int k = 3;
+            if(context.pathParamMap().containsKey("k")){
+                k = Integer.parseInt(context.pathParam("k"));
+            }
+            Date date1 = valueOf(context.pathParam("date1"));
+            Date date2 = valueOf(context.pathParam("date2"));
+            var books = booksService.getMostKBooksBetween(date1, date2, k);
             context.json(books.toString());
         }catch(MyCustumException e){
             context.json(e.getMessage()).status(e.getStatus());

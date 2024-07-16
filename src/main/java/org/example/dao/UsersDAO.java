@@ -117,7 +117,7 @@ public class UsersDAO {
     public JSONArray getUsersByBookId(int bookId) throws MyCustumException {
         JSONArray users = new JSONArray();
         try{
-            String sql = "select users.id, name, member_since, copies " +
+            String sql = "select users.id, name, member_since, copies, date " +
                     "from books inner join bought_books on books.id = bought_books.book_id " +
                     "inner join users ON users.id = bought_books.user_id " +
                     "where books.id = ?;";
@@ -128,13 +128,60 @@ public class UsersDAO {
 
             while(rs.next()){
                 JSONObject jo = new JSONObject();
-                jo.put("id", rs.getInt("id"));
+                jo.put("user_id", rs.getInt("id"));
                 jo.put("name", rs.getString("name"));
                 jo.put("member_since", rs.getDate("member_since"));
                 jo.put("copies", rs.getInt("copies"));
+                jo.put("date_sold", rs.getDate("date"));
                 users.put(jo);
             }
         }catch(Exception q){throw new MyCustumException();}
+        return users;
+    }
+
+    public JSONArray getUsersByDateAfter(Date date) {
+        JSONArray users = new JSONArray();
+        try {
+            String sql = "select * from users where member_since >= ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setDate(1, date);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                var jo = new JSONObject();
+                jo.put("id",rs.getInt("id"));
+                jo.put("name",rs.getString("name"));
+                jo.put("member_since",rs.getDate("member_since"));
+                users.put(jo);
+            }
+            return users;
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return users;
+    }
+
+    public JSONArray getUsersByDateBefore(Date date) {
+        JSONArray users = new JSONArray();
+        try {
+            String sql = "select * from users where member_since <= ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setDate(1, date);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                var jo = new JSONObject();
+                jo.put("id",rs.getInt("id"));
+                jo.put("name",rs.getString("name"));
+                jo.put("member_since",rs.getDate("member_since"));
+                users.put(jo);
+            }
+            return users;
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
         return users;
     }
 }

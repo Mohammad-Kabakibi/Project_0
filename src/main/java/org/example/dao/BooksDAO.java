@@ -137,7 +137,7 @@ public class BooksDAO {
     public JSONArray getBooksByUserId(int userId) {
         JSONArray books = new JSONArray();
         try{
-            String sql = "select books.id, title, author_name, category, year, price, cover_img, summary, copies " +
+            String sql = "select books.id, title, author_name, category, year, price, cover_img, summary, copies, date " +
                     "from books inner join bought_books on books.id = bought_books.book_id " +
                     "inner join users ON users.id = bought_books.user_id " +
                     "where users.id = ?;";
@@ -148,7 +148,7 @@ public class BooksDAO {
 
             while(rs.next()){
                 JSONObject jo = new JSONObject();
-                jo.put("id", rs.getInt("id"));
+                jo.put("book_id", rs.getInt("id"));
                 jo.put("title", rs.getString("title"));
                 jo.put("author_name", rs.getString("author_name"));
                 jo.put("category", rs.getString("category"));
@@ -157,6 +157,7 @@ public class BooksDAO {
                 jo.put("cover_img", rs.getString("cover_img"));
                 jo.put("summary", rs.getString("summary"));
                 jo.put("copies", rs.getInt("copies"));
+                jo.put("date_bought", rs.getDate("date"));
                 books.put(jo);
             }
         }catch(Exception q){}
@@ -217,5 +218,148 @@ public class BooksDAO {
             System.out.println(e.getMessage());
             throw new MyCustumException();
         }
+    }
+
+    public List<Book> getBooksByDateAfter(Date date) {
+        ArrayList<Book> books = new ArrayList<>();
+        try {
+            String sql = "select * from books where year >= ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setDate(1, date);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                books.add(new Book(rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("author_name"),
+                        rs.getString("category"),
+                        rs.getDate("year"),
+                        rs.getDouble("price"),
+                        rs.getString("cover_img"),
+                        rs.getString("summary")));
+            }
+            return books;
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return books;
+    }
+
+    public List<Book> getBooksByDateBefore(Date date) {
+        ArrayList<Book> books = new ArrayList<>();
+        try {
+            String sql = "select * from books where year <= ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setDate(1, date);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                books.add(new Book(rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("author_name"),
+                        rs.getString("category"),
+                        rs.getDate("year"),
+                        rs.getDouble("price"),
+                        rs.getString("cover_img"),
+                        rs.getString("summary")));
+            }
+            return books;
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return books;
+    }
+
+    public JSONArray getMostKBooksAfter(Date date, int k) {
+        JSONArray books = new JSONArray();
+        try{
+            String sql = "select books.id, title, author_name, category, year, price, cover_img, summary, sum(bought_books.copies) as copies " +
+                    "from books inner join bought_books on books.id = bought_books.book_id " +
+                    "where date >= ? " +
+                    "group by books.id order by copies DESC limit ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setDate(1, date);
+            preparedStatement.setInt(2, k);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                JSONObject jo = new JSONObject();
+                jo.put("id", rs.getInt("id"));
+                jo.put("title", rs.getString("title"));
+                jo.put("author_name", rs.getString("author_name"));
+                jo.put("category", rs.getString("category"));
+                jo.put("year", rs.getDate("year"));
+                jo.put("price", rs.getDouble("price"));
+                jo.put("cover_img", rs.getString("cover_img"));
+                jo.put("summary", rs.getString("summary"));
+                jo.put("copies_sold", rs.getInt("copies"));
+                books.put(jo);
+            }
+        }catch(Exception q){}
+        return books;
+    }
+
+    public JSONArray getMostKBooksBefore(Date date, int k) {
+        JSONArray books = new JSONArray();
+        try{
+            String sql = "select books.id, title, author_name, category, year, price, cover_img, summary, sum(bought_books.copies) as copies " +
+                    "from books inner join bought_books on books.id = bought_books.book_id " +
+                    "where date <= ? " +
+                    "group by books.id order by copies DESC limit ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setDate(1, date);
+            preparedStatement.setInt(2, k);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                JSONObject jo = new JSONObject();
+                jo.put("id", rs.getInt("id"));
+                jo.put("title", rs.getString("title"));
+                jo.put("author_name", rs.getString("author_name"));
+                jo.put("category", rs.getString("category"));
+                jo.put("year", rs.getDate("year"));
+                jo.put("price", rs.getDouble("price"));
+                jo.put("cover_img", rs.getString("cover_img"));
+                jo.put("summary", rs.getString("summary"));
+                jo.put("copies_sold", rs.getInt("copies"));
+                books.put(jo);
+            }
+        }catch(Exception q){}
+        return books;
+    }
+
+    public JSONArray getMostKBooksBetween(Date date1, Date date2, int k) {
+        JSONArray books = new JSONArray();
+        try{
+            String sql = "select books.id, title, author_name, category, year, price, cover_img, summary, sum(bought_books.copies) as copies " +
+                    "from books inner join bought_books on books.id = bought_books.book_id " +
+                    "where date >= ? and date <= ? " +
+                    "group by books.id order by copies DESC limit ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setDate(1, date1);
+            preparedStatement.setDate(2, date2);
+            preparedStatement.setInt(3, k);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                JSONObject jo = new JSONObject();
+                jo.put("id", rs.getInt("id"));
+                jo.put("title", rs.getString("title"));
+                jo.put("author_name", rs.getString("author_name"));
+                jo.put("category", rs.getString("category"));
+                jo.put("year", rs.getDate("year"));
+                jo.put("price", rs.getDouble("price"));
+                jo.put("cover_img", rs.getString("cover_img"));
+                jo.put("summary", rs.getString("summary"));
+                jo.put("copies_sold", rs.getInt("copies"));
+                books.put(jo);
+            }
+        }catch(Exception q){}
+        return books;
     }
 }
