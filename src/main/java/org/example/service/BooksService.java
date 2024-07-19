@@ -25,6 +25,8 @@ public class BooksService {
     public Book addBook(Book book) throws MyCustumException {
         if(book.getPrice() < 0 || book.getTitle().length() < 2 )
             throw new InvalidValuesException();
+        if(isDefaultImage(book.getTitle().replaceAll("[^a-zA-Z0-9]", "_")))
+            throw new InvalidBookTitleException("Title Cannot Be 'Default Cover Img'.");
         if(booksDAO.existingBook(book.getTitle()))
             throw new BookTitleExistsException();
         return booksDAO.addBook(book);
@@ -60,6 +62,8 @@ public class BooksService {
             book.setPrice(new_book.getDouble("price"));
         if(new_book.has("cover_img")) {
             file_name = book.getTitle().replaceAll("[^a-zA-Z0-9]","_") + new_img.extension();
+            if(isDefaultImage(file_name))
+                throw new InvalidBookTitleException("Title Cannot Be 'Default Cover Img'.");
             book.setCover_img(new_book.getString("cover_img")+IMAGES_FOLDER+file_name);
         }
         Book updated_book = booksDAO.updateBookById(bookId, book);
@@ -70,8 +74,8 @@ public class BooksService {
                     var cover_img = new File(UPLOAD_FOLDER + IMAGES_FOLDER + old_img);
                     if (cover_img.exists())
                         cover_img.delete();
-                    FileUtils.copyInputStreamToFile(new_img.content(), new File(UPLOAD_FOLDER + IMAGES_FOLDER + file_name));
                 }
+                FileUtils.copyInputStreamToFile(new_img.content(), new File(UPLOAD_FOLDER + IMAGES_FOLDER + file_name));
             }catch (Exception q){
                 System.out.println(q.getMessage());
             }
@@ -111,7 +115,7 @@ public class BooksService {
     }
 
     private boolean isDefaultImage(String cover_img){
-        return cover_img.endsWith(DEFAULT_COVER_IMAGE);
+        return DEFAULT_COVER_IMAGE.split("\\.")[0].endsWith(cover_img);
     }
 
     public List<Book> getBooksByDateAfter(Date date) throws InvalidDateException {
@@ -125,18 +129,24 @@ public class BooksService {
         return booksDAO.getBooksByDateBefore(date);
     }
 
-    public JSONArray getMostKBooksAfter(Date date, int k) throws InvalidDateException {
+    public JSONArray getMostKBooksAfter(Date date, int k) throws MyCustumException {
+        if(k <= 0)
+            throw new NigativeNumException();
         if(date.after(Date.from(Instant.now()))){
             throw new InvalidDateException("Invalid Date: Date Cannot Be In The Future.");
         }
         return booksDAO.getMostKBooksAfter(date, k);
     }
 
-    public JSONArray getMostKBooksBefore(Date date, int k) {
+    public JSONArray getMostKBooksBefore(Date date, int k) throws NigativeNumException {
+        if(k <= 0)
+            throw new NigativeNumException();
         return booksDAO.getMostKBooksBefore(date, k);
     }
 
-    public JSONArray getMostKBooksBetween(Date date1, Date date2, int k) throws InvalidDateException {
+    public JSONArray getMostKBooksBetween(Date date1, Date date2, int k) throws MyCustumException {
+        if(k <= 0)
+            throw new NigativeNumException();
         if(date1.after(Date.from(Instant.now())))
             throw new InvalidDateException("Invalid Date: Date1 Cannot Be In The Future.");
         if(date1.after(date2))

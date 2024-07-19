@@ -1,0 +1,2888 @@
+{
+	"info": {
+		"_postman_id": "e4938f91-e646-47dc-a428-7c064a9d6572",
+		"name": "Books Store (Project 0)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36640139"
+	},
+	"item": [
+		{
+			"name": "Books",
+			"item": [
+				{
+					"name": "Get All Books",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/app/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"books"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All Books",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 19:18:54 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Length",
+									"value": "978"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 3,\n        \"title\": \"1984\",\n        \"author_name\": \"George Orwell\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 9,\n        \"title\": \"The Chronicles of Narnia\",\n        \"author_name\": \"C.S. Lewis\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 13,\n        \"title\": \"The Alchemist\",\n        \"author_name\": \"Paulo Coelho\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 14,\n        \"title\": \"The Grapes of Wrath\",\n        \"author_name\": \"John Steinbeck\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 15,\n        \"title\": \"The Kite Runner\",\n        \"author_name\": \"Khaled Hosseini\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 18,\n        \"title\": \"Fahrenheit 451\",\n        \"author_name\": \"Ray Bradbury\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 20,\n        \"title\": \"Gone with the Wind\",\n        \"author_name\": \"Margaret Mitchell\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 21,\n        \"title\": \"The Picture of Dorian Gray\",\n        \"author_name\": \"Oscar Wilde\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 25,\n        \"title\": \"Animal Farm\",\n        \"author_name\": \"George Orwell\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 1,\n        \"title\": \"The Catcher in the Rye\",\n        \"author_name\": \"J.D. Salinger\",\n        \"category\": \"category 1\",\n        \"year\": \"2024-10-23\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/The_Catcher_in_the_Rye.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 2,\n        \"title\": \"To Kill a Mockingbird\",\n        \"author_name\": \"Harper Lee\",\n        \"category\": \"category 1\",\n        \"year\": \"2024-02-12\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 11,\n        \"title\": \"The Da Vinci Code\",\n        \"author_name\": \"Dan Brown\",\n        \"category\": \"category2\",\n        \"year\": \"2022-02-03\",\n        \"price\": 32.3,\n        \"cover_img\": \"localhost:8080/images/The_Da_Vinci_Code.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 4,\n        \"title\": \"Pride and Prejudice\",\n        \"author_name\": \"Jane Austen\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-01-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 27,\n        \"title\": \"The Hunger Games\",\n        \"author_name\": \"Suzanne Collins\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/The_Hunger_Games.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 10,\n        \"title\": \"The Hitchhiker's Guide to the Galaxy\",\n        \"author_name\": \"Douglas Adams\",\n        \"category\": \"category2\",\n        \"year\": \"2021-02-03\",\n        \"price\": 32.3,\n        \"cover_img\": \"localhost:8080/images/The_Hitchhiker_s_Guide_to_the_Galaxy.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 5,\n        \"title\": \"The Great Gatsby\",\n        \"author_name\": \"F. Scott Fitzgerald\",\n        \"category\": \"category 1\",\n        \"year\": \"2022-11-17\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 6,\n        \"title\": \"Moby-Dk\",\n        \"author_name\": \"Herman Melville\",\n        \"category\": \"category 1\",\n        \"year\": \"2022-01-21\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 7,\n        \"title\": \"The Lord of the Rings\",\n        \"author_name\": \"J.R.R. Tolkien\",\n        \"category\": \"category 1\",\n        \"year\": \"2021-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 8,\n        \"title\": \"Brave New World\",\n        \"author_name\": \"Aldous Huxley\",\n        \"category\": \"category 1\",\n        \"year\": \"2021-03-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 12,\n        \"title\": \"Harry Potter and the Sorcerer's Stone\",\n        \"author_name\": \"J.K. Rowling\",\n        \"category\": \"category 1\",\n        \"year\": \"2013-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 17,\n        \"title\": \"Catch-22\",\n        \"author_name\": \"Joseph Heller\",\n        \"category\": \"category 1\",\n        \"year\": \"2017-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 19,\n        \"title\": \"The Color Purple\",\n        \"author_name\": \"Alice Walker\",\n        \"category\": \"category 1\",\n        \"year\": \"2019-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 22,\n        \"title\": \"The Book Thief\",\n        \"author_name\": \"Markus Zusak\",\n        \"category\": \"category 1\",\n        \"year\": \"2020-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/The_Book_Thief.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 23,\n        \"title\": \"The Shining\",\n        \"author_name\": \"Stephen King\",\n        \"category\": \"category 1\",\n        \"year\": \"2013-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 26,\n        \"title\": \"One Hundred Years of Solitude\",\n        \"author_name\": \"Gabriel Garcia Marquez\",\n        \"category\": \"category 1\",\n        \"year\": \"2015-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    }\n]"
+						},
+						{
+							"name": "Get All Books",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jul 2024 00:18:32 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Location",
+									"value": "/nothing"
+								},
+								{
+									"key": "Content-Length",
+									"value": "27"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Unauthorized.\"\n}"
+						},
+						{
+							"name": "Get All Books",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer89YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jul 2024 00:19:01 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Location",
+									"value": "/nothing"
+								},
+								{
+									"key": "Content-Length",
+									"value": "88"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid Token: Make Sure that the value in the header is 'Bearer <token>'.\"\n}"
+						},
+						{
+							"name": "Get All Books",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=56",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jul 2024 00:19:18 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Location",
+									"value": "/nothing"
+								},
+								{
+									"key": "Content-Length",
+									"value": "28"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid Token.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Book By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/app/books/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"books",
+								"7"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Book By ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books/7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"7"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 19:20:59 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "207"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 7,\n    \"title\": \"The Lord of the Rings\",\n    \"author_name\": \"J.R.R. Tolkien\",\n    \"category\": \"category 1\",\n    \"year\": \"2021-12-31\",\n    \"price\": 12.21,\n    \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n    \"summary\": \"summary\"\n}"
+						},
+						{
+							"name": "Get Book By ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books/700",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"700"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 19:51:54 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Book (ID:700) Doesn't Exist.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Book Cover Image",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/images/default_cover_img.jpg",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"images",
+								"default_cover_img.jpg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Books That was Bought By Certain User By User ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/app/users/1/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"users",
+								"1",
+								"books"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Books That was Bought By Certain User By User ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/users/1/books",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"users",
+										"1",
+										"books"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 19:24:57 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "990"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"author_name\": \"Harper Lee\",\n        \"summary\": \"summary\",\n        \"copies\": 1,\n        \"year\": \"2024-02-12\",\n        \"price\": 12.21,\n        \"book_id\": 2,\n        \"title\": \"To Kill a Mockingbird\",\n        \"category\": \"category 1\",\n        \"date_bought\": \"2023-01-01\",\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\"\n    },\n    {\n        \"author_name\": \"Jane Austen\",\n        \"summary\": \"summary\",\n        \"copies\": 1,\n        \"year\": \"2023-01-31\",\n        \"price\": 12.21,\n        \"book_id\": 4,\n        \"title\": \"Pride and Prejudice\",\n        \"category\": \"category 1\",\n        \"date_bought\": \"2022-10-14\",\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\"\n    },\n    {\n        \"author_name\": \"Margaret Mitchell\",\n        \"summary\": \"summary\",\n        \"copies\": 1,\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"book_id\": 20,\n        \"title\": \"Gone with the Wind\",\n        \"category\": \"category 1\",\n        \"date_bought\": \"2022-04-14\",\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\"\n    },\n    {\n        \"author_name\": \"Aldous Huxley\",\n        \"summary\": \"summary\",\n        \"copies\": 1,\n        \"year\": \"2021-03-31\",\n        \"price\": 12.21,\n        \"book_id\": 8,\n        \"title\": \"Brave New World\",\n        \"category\": \"category 1\",\n        \"date_bought\": \"2022-08-19\",\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\"\n    }\n]"
+						},
+						{
+							"name": "Get Books That was Bought By Certain User By User ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/users/909/books",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"users",
+										"909",
+										"books"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 19:53:11 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User (ID:909) Doesn't Exist.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Books Before Date",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/app/books/before/2024-06-02",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"books",
+								"before",
+								"2024-06-02"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Books Before Date",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books/before/2024-06-02",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"before",
+										"2024-06-02"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 19:26:43 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Length",
+									"value": "937"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 3,\n        \"title\": \"1984\",\n        \"author_name\": \"George Orwell\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 9,\n        \"title\": \"The Chronicles of Narnia\",\n        \"author_name\": \"C.S. Lewis\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 13,\n        \"title\": \"The Alchemist\",\n        \"author_name\": \"Paulo Coelho\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 14,\n        \"title\": \"The Grapes of Wrath\",\n        \"author_name\": \"John Steinbeck\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 15,\n        \"title\": \"The Kite Runner\",\n        \"author_name\": \"Khaled Hosseini\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 18,\n        \"title\": \"Fahrenheit 451\",\n        \"author_name\": \"Ray Bradbury\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 20,\n        \"title\": \"Gone with the Wind\",\n        \"author_name\": \"Margaret Mitchell\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 21,\n        \"title\": \"The Picture of Dorian Gray\",\n        \"author_name\": \"Oscar Wilde\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 25,\n        \"title\": \"Animal Farm\",\n        \"author_name\": \"George Orwell\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 2,\n        \"title\": \"To Kill a Mockingbird\",\n        \"author_name\": \"Harper Lee\",\n        \"category\": \"category 1\",\n        \"year\": \"2024-02-12\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 11,\n        \"title\": \"The Da Vinci Code\",\n        \"author_name\": \"Dan Brown\",\n        \"category\": \"category2\",\n        \"year\": \"2022-02-03\",\n        \"price\": 32.3,\n        \"cover_img\": \"localhost:8080/images/The_Da_Vinci_Code.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 4,\n        \"title\": \"Pride and Prejudice\",\n        \"author_name\": \"Jane Austen\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-01-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 27,\n        \"title\": \"The Hunger Games\",\n        \"author_name\": \"Suzanne Collins\",\n        \"category\": \"category 1\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/The_Hunger_Games.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 10,\n        \"title\": \"The Hitchhiker's Guide to the Galaxy\",\n        \"author_name\": \"Douglas Adams\",\n        \"category\": \"category2\",\n        \"year\": \"2021-02-03\",\n        \"price\": 32.3,\n        \"cover_img\": \"localhost:8080/images/The_Hitchhiker_s_Guide_to_the_Galaxy.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 5,\n        \"title\": \"The Great Gatsby\",\n        \"author_name\": \"F. Scott Fitzgerald\",\n        \"category\": \"category 1\",\n        \"year\": \"2022-11-17\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 6,\n        \"title\": \"Moby-Dk\",\n        \"author_name\": \"Herman Melville\",\n        \"category\": \"category 1\",\n        \"year\": \"2022-01-21\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 7,\n        \"title\": \"The Lord of the Rings\",\n        \"author_name\": \"J.R.R. Tolkien\",\n        \"category\": \"category 1\",\n        \"year\": \"2021-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 8,\n        \"title\": \"Brave New World\",\n        \"author_name\": \"Aldous Huxley\",\n        \"category\": \"category 1\",\n        \"year\": \"2021-03-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 12,\n        \"title\": \"Harry Potter and the Sorcerer's Stone\",\n        \"author_name\": \"J.K. Rowling\",\n        \"category\": \"category 1\",\n        \"year\": \"2013-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 17,\n        \"title\": \"Catch-22\",\n        \"author_name\": \"Joseph Heller\",\n        \"category\": \"category 1\",\n        \"year\": \"2017-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 19,\n        \"title\": \"The Color Purple\",\n        \"author_name\": \"Alice Walker\",\n        \"category\": \"category 1\",\n        \"year\": \"2019-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 22,\n        \"title\": \"The Book Thief\",\n        \"author_name\": \"Markus Zusak\",\n        \"category\": \"category 1\",\n        \"year\": \"2020-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/The_Book_Thief.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 23,\n        \"title\": \"The Shining\",\n        \"author_name\": \"Stephen King\",\n        \"category\": \"category 1\",\n        \"year\": \"2013-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    },\n    {\n        \"id\": 26,\n        \"title\": \"One Hundred Years of Solitude\",\n        \"author_name\": \"Gabriel Garcia Marquez\",\n        \"category\": \"category 1\",\n        \"year\": \"2015-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n        \"summary\": \"summary\"\n    }\n]"
+						},
+						{
+							"name": "Get Books Before Date",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books/before/2024-06-0289",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"before",
+										"2024-06-0289"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 19:53:52 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "58"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid Date Please Use [yyyy-mm-dd] Format.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Books After Date",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/app/books/after/2024-06-02",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"books",
+								"after",
+								"2024-06-02"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Books After Date",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books/after/2024-06-02",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"after",
+										"2024-06-02"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 19:29:33 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "214"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"title\": \"The Catcher in the Rye\",\n        \"author_name\": \"J.D. Salinger\",\n        \"category\": \"category 1\",\n        \"year\": \"2024-10-23\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/The_Catcher_in_the_Rye.jpg\",\n        \"summary\": \"summary\"\n    }\n]"
+						},
+						{
+							"name": "Get Books After Date future",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books/after/2027-06-02",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"after",
+										"2027-06-02"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jul 2024 00:57:51 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "57"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid Date: Date Cannot Be In The Future.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get the 3 Most Selling Books",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/app/books/most_selling/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"books",
+								"most_selling",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get the 3 Most Selling Books",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books/most_selling/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"most_selling",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 19:32:13 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "702"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"author_name\": \"Suzanne Collins\",\n        \"summary\": \"summary\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"copies_sold\": 4,\n        \"id\": 27,\n        \"title\": \"The Hunger Games\",\n        \"category\": \"category 1\",\n        \"cover_img\": \"localhost:8080/images/The_Hunger_Games.jpg\"\n    },\n    {\n        \"author_name\": \"Douglas Adams\",\n        \"summary\": \"summary\",\n        \"year\": \"2021-02-03\",\n        \"price\": 32.3,\n        \"copies_sold\": 1,\n        \"id\": 10,\n        \"title\": \"The Hitchhiker's Guide to the Galaxy\",\n        \"category\": \"category2\",\n        \"cover_img\": \"localhost:8080/images/The_Hitchhiker_s_Guide_to_the_Galaxy.jpg\"\n    },\n    {\n        \"author_name\": \"Margaret Mitchell\",\n        \"summary\": \"summary\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"copies_sold\": 1,\n        \"id\": 20,\n        \"title\": \"Gone with the Wind\",\n        \"category\": \"category 1\",\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get the K Most Selling Books",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/app/books/most_selling/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"books",
+								"most_selling",
+								"5"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get the K Most Selling Books Copy",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books/most_selling/5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"most_selling",
+										"5"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 19:32:39 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1135"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"author_name\": \"Suzanne Collins\",\n        \"summary\": \"summary\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"copies_sold\": 4,\n        \"id\": 27,\n        \"title\": \"The Hunger Games\",\n        \"category\": \"category 1\",\n        \"cover_img\": \"localhost:8080/images/The_Hunger_Games.jpg\"\n    },\n    {\n        \"author_name\": \"Margaret Mitchell\",\n        \"summary\": \"summary\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"copies_sold\": 1,\n        \"id\": 20,\n        \"title\": \"Gone with the Wind\",\n        \"category\": \"category 1\",\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\"\n    },\n    {\n        \"author_name\": \"Douglas Adams\",\n        \"summary\": \"summary\",\n        \"year\": \"2021-02-03\",\n        \"price\": 32.3,\n        \"copies_sold\": 1,\n        \"id\": 10,\n        \"title\": \"The Hitchhiker's Guide to the Galaxy\",\n        \"category\": \"category2\",\n        \"cover_img\": \"localhost:8080/images/The_Hitchhiker_s_Guide_to_the_Galaxy.jpg\"\n    },\n    {\n        \"author_name\": \"Jane Austen\",\n        \"summary\": \"summary\",\n        \"year\": \"2023-01-31\",\n        \"price\": 12.21,\n        \"copies_sold\": 1,\n        \"id\": 4,\n        \"title\": \"Pride and Prejudice\",\n        \"category\": \"category 1\",\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\"\n    },\n    {\n        \"author_name\": \"Dan Brown\",\n        \"summary\": \"summary\",\n        \"year\": \"2022-02-03\",\n        \"price\": 32.3,\n        \"copies_sold\": 1,\n        \"id\": 11,\n        \"title\": \"The Da Vinci Code\",\n        \"category\": \"category2\",\n        \"cover_img\": \"localhost:8080/images/The_Da_Vinci_Code.jpg\"\n    }\n]"
+						},
+						{
+							"name": "Get the K Most Selling Books",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books/most_selling/-5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"most_selling",
+										"-5"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 19:47:28 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "45"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Please Enter a Positive Number.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get the 3 Most Selling Books After Date",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/app/books/most_selling/after/2023-01-23",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"books",
+								"most_selling",
+								"after",
+								"2023-01-23"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get the 3 Most Selling Books After Date",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books/most_selling/after/2023-01-23",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"most_selling",
+										"after",
+										"2023-01-23"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jul 2024 01:02:24 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "477"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"author_name\": \"Suzanne Collins\",\n        \"summary\": \"summary\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"copies_sold\": 3,\n        \"id\": 27,\n        \"title\": \"The Hunger Games\",\n        \"category\": \"category 1\",\n        \"cover_img\": \"localhost:8080/images/The_Hunger_Games.jpg\"\n    },\n    {\n        \"author_name\": \"Douglas Adams\",\n        \"summary\": \"summary\",\n        \"year\": \"2021-02-03\",\n        \"price\": 32.3,\n        \"copies_sold\": 1,\n        \"id\": 10,\n        \"title\": \"The Hitchhiker's Guide to the Galaxy\",\n        \"category\": \"category2\",\n        \"cover_img\": \"localhost:8080/images/The_Hitchhiker_s_Guide_to_the_Galaxy.jpg\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get the K Most Selling Books After Date",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/app/books/most_selling/4/after/2023-01-23",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"books",
+								"most_selling",
+								"4",
+								"after",
+								"2023-01-23"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get the K Most Selling Books After Date",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books/most_selling/4/after/2023-01-23",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"most_selling",
+										"4",
+										"after",
+										"2023-01-23"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 19:35:03 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "477"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"author_name\": \"Suzanne Collins\",\n        \"summary\": \"summary\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"copies_sold\": 3,\n        \"id\": 27,\n        \"title\": \"The Hunger Games\",\n        \"category\": \"category 1\",\n        \"cover_img\": \"localhost:8080/images/The_Hunger_Games.jpg\"\n    },\n    {\n        \"author_name\": \"Douglas Adams\",\n        \"summary\": \"summary\",\n        \"year\": \"2021-02-03\",\n        \"price\": 32.3,\n        \"copies_sold\": 1,\n        \"id\": 10,\n        \"title\": \"The Hitchhiker's Guide to the Galaxy\",\n        \"category\": \"category2\",\n        \"cover_img\": \"localhost:8080/images/The_Hitchhiker_s_Guide_to_the_Galaxy.jpg\"\n    }\n]"
+						},
+						{
+							"name": "Get the K Most Selling Books After Date future",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books/most_selling/4/after/2027-01-23",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"most_selling",
+										"4",
+										"after",
+										"2027-01-23"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 19:46:49 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "57"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid Date: Date Cannot Be In The Future.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get the K Most Selling Books Before Date",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/app/books/most_selling/4/before/2023-01-23",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"books",
+								"most_selling",
+								"4",
+								"before",
+								"2023-01-23"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get the K Most Selling Books Before Date",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books/most_selling/4/before/2023-01-23",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"most_selling",
+										"4",
+										"before",
+										"2023-01-23"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 19:36:30 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "885"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"author_name\": \"Jane Austen\",\n        \"summary\": \"summary\",\n        \"year\": \"2023-01-31\",\n        \"price\": 12.21,\n        \"copies_sold\": 1,\n        \"id\": 4,\n        \"title\": \"Pride and Prejudice\",\n        \"category\": \"category 1\",\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\"\n    },\n    {\n        \"author_name\": \"Margaret Mitchell\",\n        \"summary\": \"summary\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"copies_sold\": 1,\n        \"id\": 20,\n        \"title\": \"Gone with the Wind\",\n        \"category\": \"category 1\",\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\"\n    },\n    {\n        \"author_name\": \"Harper Lee\",\n        \"summary\": \"summary\",\n        \"year\": \"2024-02-12\",\n        \"price\": 12.21,\n        \"copies_sold\": 1,\n        \"id\": 2,\n        \"title\": \"To Kill a Mockingbird\",\n        \"category\": \"category 1\",\n        \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\"\n    },\n    {\n        \"author_name\": \"Suzanne Collins\",\n        \"summary\": \"summary\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"copies_sold\": 1,\n        \"id\": 27,\n        \"title\": \"The Hunger Games\",\n        \"category\": \"category 1\",\n        \"cover_img\": \"localhost:8080/images/The_Hunger_Games.jpg\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get the K Most Selling Books Between Two Dates",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/app/books/most_selling/4/between/2023-01-23/2024-10-27",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"books",
+								"most_selling",
+								"4",
+								"between",
+								"2023-01-23",
+								"2024-10-27"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get the K Most Selling Books Between Two Dates",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books/most_selling/4/between/2023-01-23/2024-06-27",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"most_selling",
+										"4",
+										"between",
+										"2023-01-23",
+										"2024-06-27"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 19:37:41 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "477"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"author_name\": \"Suzanne Collins\",\n        \"summary\": \"summary\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"copies_sold\": 3,\n        \"id\": 27,\n        \"title\": \"The Hunger Games\",\n        \"category\": \"category 1\",\n        \"cover_img\": \"localhost:8080/images/The_Hunger_Games.jpg\"\n    },\n    {\n        \"author_name\": \"Douglas Adams\",\n        \"summary\": \"summary\",\n        \"year\": \"2021-02-03\",\n        \"price\": 32.3,\n        \"copies_sold\": 1,\n        \"id\": 10,\n        \"title\": \"The Hitchhiker's Guide to the Galaxy\",\n        \"category\": \"category2\",\n        \"cover_img\": \"localhost:8080/images/The_Hitchhiker_s_Guide_to_the_Galaxy.jpg\"\n    }\n]"
+						},
+						{
+							"name": "Get the K Most Selling Books Between Two Dates future",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books/most_selling/4/between/2027-01-23/2024-10-27",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"most_selling",
+										"4",
+										"between",
+										"2027-01-23",
+										"2024-10-27"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jul 2024 01:07:59 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "58"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid Date: Date1 Cannot Be In The Future.\"\n}"
+						},
+						{
+							"name": "Get the K Most Selling Books Between Two Dates invalid case",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books/most_selling/4/between/2024-01-23/2022-10-27",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"most_selling",
+										"4",
+										"between",
+										"2024-01-23",
+										"2022-10-27"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jul 2024 01:09:23 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "56"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid Date: Date1 Should Be After Date2.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Add Book",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "The Hunger Games2",
+									"type": "text"
+								},
+								{
+									"key": "author_name",
+									"value": "Suzanne Collins",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "2023-12-31",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "21.32",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "category 1",
+									"type": "text"
+								},
+								{
+									"key": "summary",
+									"value": "summary",
+									"type": "text"
+								},
+								{
+									"key": "cover_img",
+									"type": "file",
+									"src": "/C:/Users/Mohammad Kabakibi/OneDrive/Desktop/the hunger games.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/app/books/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"books",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add Book",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"title\": \"The Hunger Games2\",\r\n        \"author_name\": \"Suzanne Collins\",\r\n        \"year\": \"2023-12-31\",\r\n        \"price\": 12.21,\r\n        \"category\": \"category 1\",\r\n        \"summary\": \"summary\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/app/books/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 19:43:08 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "205"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 31,\n    \"title\": \"The Hunger Games2\",\n    \"author_name\": \"Suzanne Collins\",\n    \"category\": \"category 1\",\n    \"year\": \"2023-12-30\",\n    \"price\": 12.21,\n    \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n    \"summary\": \"summary\"\n}"
+						},
+						{
+							"name": "Add Book Existing Title",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"title\": \"The Hunger Games\",\r\n        \"author_name\": \"Suzanne Collins\",\r\n        \"year\": \"2023-12-31\",\r\n        \"price\": 12.21,\r\n        \"category\": \"category 1\",\r\n        \"summary\": \"summary\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/app/books/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										""
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 19:44:05 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Book Title Already Exists.\"\n}"
+						},
+						{
+							"name": "Add Book multipart",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "The Hunger Games2",
+											"type": "text"
+										},
+										{
+											"key": "author_name",
+											"value": "Suzanne Collins",
+											"type": "text"
+										},
+										{
+											"key": "year",
+											"value": "2023-12-31",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "21.32",
+											"type": "text"
+										},
+										{
+											"key": "category",
+											"value": "category 1",
+											"type": "text"
+										},
+										{
+											"key": "summary",
+											"value": "summary",
+											"type": "text"
+										},
+										{
+											"key": "cover_img",
+											"type": "file",
+											"src": "/C:/Users/Mohammad Kabakibi/OneDrive/Desktop/the hunger games.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/app/books/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jul 2024 01:20:36 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "205"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 34,\n    \"title\": \"The Hunger Games2\",\n    \"author_name\": \"Suzanne Collins\",\n    \"category\": \"category 1\",\n    \"year\": \"2023-12-31\",\n    \"price\": 21.32,\n    \"cover_img\": \"localhost:8080/images/The_Hunger_Games2.jpg\",\n    \"summary\": \"summary\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Book By ID",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"category\": \"category 2\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/app/books/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"books",
+								"3"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Book By ID",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"category\": \"category 2\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/app/books/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"3"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 19:58:37 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "189"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 3,\n    \"title\": \"1984\",\n    \"author_name\": \"George Orwell\",\n    \"category\": \"category 2\",\n    \"year\": \"2023-12-31\",\n    \"price\": 12.21,\n    \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n    \"summary\": \"summary\"\n}"
+						},
+						{
+							"name": "Update Book By ID multipart",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "cover_img",
+											"type": "file",
+											"src": "/C:/Users/Mohammad Kabakibi/OneDrive/Desktop/The Book Thief.jpg"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/app/books/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"3"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 20:00:14 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "176"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 3,\n    \"title\": \"1984\",\n    \"author_name\": \"George Orwell\",\n    \"category\": \"category 2\",\n    \"year\": \"2023-12-31\",\n    \"price\": 12.21,\n    \"cover_img\": \"localhost:8080/images/1984.jpg\",\n    \"summary\": \"summary\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Book By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"category\": \"category 2\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/app/books/31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"books",
+								"31"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Book By ID",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"category\": \"category 2\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/app/books/31",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"31"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 20:02:03 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "205"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 31,\n    \"title\": \"The Hunger Games2\",\n    \"author_name\": \"Suzanne Collins\",\n    \"category\": \"category 1\",\n    \"year\": \"2023-12-30\",\n    \"price\": 12.21,\n    \"cover_img\": \"localhost:8080/images/default_cover_img.jpg\",\n    \"summary\": \"summary\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/app/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"users",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All Users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/users/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"users",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 20:04:55 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "987"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Belle Rignold\",\n        \"password\": \"zI6?|?HU\",\n        \"member_since\": \"2024-01-16\"\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Elvin Hutchence\",\n        \"password\": \"gQ5+F&t\",\n        \"member_since\": \"2024-03-28\"\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Corenda Marsy\",\n        \"password\": \"hE9&j<&\",\n        \"member_since\": \"2024-01-17\"\n    },\n    {\n        \"id\": 4,\n        \"name\": \"Lynette Heinl\",\n        \"password\": \"hN2\\\"%\",\n        \"member_since\": \"2023-12-20\"\n    },\n    {\n        \"id\": 5,\n        \"name\": \"Morten Yoakley\",\n        \"password\": \"wU6\\\"\",\n        \"member_since\": \"2023-12-12\"\n    },\n    {\n        \"id\": 6,\n        \"name\": \"Haroun Aspland\",\n        \"password\": \"aS7*}3M\",\n        \"member_since\": \"2024-03-14\"\n    },\n    {\n        \"id\": 7,\n        \"name\": \"Onfre Roots\",\n        \"password\": \"gX2{i>\",\n        \"member_since\": \"2024-07-02\"\n    },\n    {\n        \"id\": 8,\n        \"name\": \"Karl Archambault\",\n        \"password\": \"vC8+\\\\\",\n        \"member_since\": \"2024-06-26\"\n    },\n    {\n        \"id\": 9,\n        \"name\": \"Cinderella De Bruijne\",\n        \"password\": \"oP3#gHw\",\n        \"member_since\": \"2023-11-19\"\n    },\n    {\n        \"id\": 11,\n        \"name\": \"Dolorita Sabati\",\n        \"password\": \"eS3\\\\RMz\",\n        \"member_since\": \"2024-05-16\"\n    },\n    {\n        \"id\": 12,\n        \"name\": \"Barbe Sparham\",\n        \"password\": \"fT8\\\"z=\",\n        \"member_since\": \"2024-06-18\"\n    },\n    {\n        \"id\": 13,\n        \"name\": \"Dennet Lamshead\",\n        \"password\": \"oZ4=\",\n        \"member_since\": \"2023-07-09\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get User By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/app/users/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"users",
+								"8"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get User By ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/users/8",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"users",
+										"8"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 20:05:38 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "82"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 8,\n    \"name\": \"Karl Archambault\",\n    \"password\": \"vC8+\\\\\",\n    \"member_since\": \"2024-06-26\"\n}"
+						},
+						{
+							"name": "Get User By ID not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/users/809",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"users",
+										"809"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 20:06:22 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User (ID:809) Doesn't Exist.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Users Who Joined After Date",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/app/users/after/2024-05-05",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"users",
+								"after",
+								"2024-05-05"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Users Who Joined After Date",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/users/after/2024-05-05",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"users",
+										"after",
+										"2024-05-05"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 20:08:13 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "246"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"member_since\": \"2024-07-02\",\n        \"name\": \"Onfre Roots\",\n        \"id\": 7\n    },\n    {\n        \"member_since\": \"2024-06-26\",\n        \"name\": \"Karl Archambault\",\n        \"id\": 8\n    },\n    {\n        \"member_since\": \"2024-05-16\",\n        \"name\": \"Dolorita Sabati\",\n        \"id\": 11\n    },\n    {\n        \"member_since\": \"2024-06-18\",\n        \"name\": \"Barbe Sparham\",\n        \"id\": 12\n    }\n]"
+						},
+						{
+							"name": "Get Users Who Joined After Date future",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/users/after/2027-05-05",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"users",
+										"after",
+										"2027-05-05"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 20:09:22 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "57"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid Date: Date Cannot Be In The Future.\"\n}"
+						},
+						{
+							"name": "Get Users Who Joined After Date invalid format",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/users/after/2027-jul-05",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"users",
+										"after",
+										"2027-jul-05"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 20:11:52 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "58"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid Date Please Use [yyyy-mm-dd] Format.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Users Who Joined Before Date",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/app/users/before/2024-05-05",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"users",
+								"before",
+								"2024-05-05"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Users Who Joined Before Date",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/users/before/2024-05-05",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"users",
+										"before",
+										"2024-05-05"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 20:11:06 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "496"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"member_since\": \"2024-01-16\",\n        \"name\": \"Belle Rignold\",\n        \"id\": 1\n    },\n    {\n        \"member_since\": \"2024-03-28\",\n        \"name\": \"Elvin Hutchence\",\n        \"id\": 2\n    },\n    {\n        \"member_since\": \"2024-01-17\",\n        \"name\": \"Corenda Marsy\",\n        \"id\": 3\n    },\n    {\n        \"member_since\": \"2023-12-20\",\n        \"name\": \"Lynette Heinl\",\n        \"id\": 4\n    },\n    {\n        \"member_since\": \"2023-12-12\",\n        \"name\": \"Morten Yoakley\",\n        \"id\": 5\n    },\n    {\n        \"member_since\": \"2024-03-14\",\n        \"name\": \"Haroun Aspland\",\n        \"id\": 6\n    },\n    {\n        \"member_since\": \"2023-11-19\",\n        \"name\": \"Cinderella De Bruijne\",\n        \"id\": 9\n    },\n    {\n        \"member_since\": \"2023-07-09\",\n        \"name\": \"Dennet Lamshead\",\n        \"id\": 13\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get Users Who Bought Certain Book",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/app/books/27/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"books",
+								"27",
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Users Who Bought Certain Book",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books/27/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"27",
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 20:13:24 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "204"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"member_since\": \"2023-12-20\",\n        \"copies\": 1,\n        \"user_id\": 4,\n        \"name\": \"Lynette Heinl\",\n        \"date_sold\": \"2022-08-26\"\n    },\n    {\n        \"member_since\": \"2023-12-12\",\n        \"copies\": 3,\n        \"user_id\": 5,\n        \"name\": \"Morten Yoakley\",\n        \"date_sold\": \"2024-02-14\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Add User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"new user\",\r\n    \"password\": \"vC8+\\\\\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/app/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"users",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"new user\",\r\n    \"password\": \"vC8+\\\\\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/app/users/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"users",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 20:23:38 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "75"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 14,\n    \"name\": \"new user\",\n    \"password\": \"vC8+\\\\\",\n    \"member_since\": \"2024-07-18\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update User By ID",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"new name\",\r\n    \"password\": \"new passssswordd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/app/users/14",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"users",
+								"14"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update User By ID",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"new name\",\r\n    \"password\": \"new passssswordd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/app/users/14",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"users",
+										"14"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 20:25:25 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "85"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 14,\n    \"name\": \"new name\",\n    \"password\": \"new passssswordd\",\n    \"member_since\": \"2024-07-18\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete User By ID Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"new name\",\r\n    \"password\": \"new passssswordd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/app/users/14",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"users",
+								"14"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete User By ID Copy",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"new name\",\r\n    \"password\": \"new passssswordd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/app/users/14",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"users",
+										"14"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 20:26:13 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "77"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 14,\n    \"name\": \"new name\",\n    \"password\": \"new name\",\n    \"member_since\": \"2024-07-18\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/login/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/login/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"login",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 20:27:32 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "20"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"YWRtaW4=\"\n}"
+						},
+						{
+							"name": "Login invalid",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"qweq\",\r\n    \"password\": \"126783\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/login/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"login",
+										""
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 18 Jul 2024 20:28:14 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid Credentials.\"\n}"
+						},
+						{
+							"name": "Login missing credentials",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/login/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"login",
+										""
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jul 2024 01:13:38 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Missing Credentials.\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

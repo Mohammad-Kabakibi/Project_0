@@ -57,6 +57,7 @@ public class BooksStoreController {
 
         app.before("app/*",this::authorize);
         app.before("images/*",this::authorize);
+        app.get("nothing",context -> {}); // returns nothing to keep the data from the Unauthorized exception.
 
         app.get("login", context -> context.result("login page..."));
         app.post("login", this::login);
@@ -91,15 +92,16 @@ public class BooksStoreController {
     }
 
 
-    private void login(Context context) throws MyCustumException {
-        // admins page
+    private void login(Context context) {
+        // this is a sample login using the concept of tokens
         try {
             var jo = new JSONObject(context.body());
             if (jo.has("username") && jo.has("password")) {
                 if (jo.getString("username").equals("admin") && jo.getString("password").equals("123")) {
                     var token_object = new JSONObject();
+                    // in reality, it should be hashing with a key... this is just a test
                     String token = new String(Base64.getEncoder().encode(jo.getString("username").getBytes()), "UTF-8");
-                    token_object.put("token", token);
+                    token_object.put("token", token); // should be in database
                     tokens.put(jo.getString("username"), token);
                     context.json(token_object.toString());
                 }
@@ -129,8 +131,8 @@ public class BooksStoreController {
             else
                 throw new UnAuthorizedException();
         }catch (MyCustumException q){
-            context.redirect("/login");
-//            context.json(q.getMessage()).status(q.getStatus());
+            context.redirect("/nothing"); // to prevent running the endpoint
+            context.json(q.getMessage()).status(q.getStatus());
         }
     }
 
@@ -292,7 +294,7 @@ public class BooksStoreController {
                 Book book = mapper.readValue(context.body(), Book.class);
                 book.setCover_img(context.host() + DEFAULT_COVER_IMAGE);
                 Book addedBook = booksService.addBook(book);
-                context.json(mapper.writeValueAsString(addedBook));
+                context.json(mapper.writeValueAsString(addedBook)).status(201);
             }
         }catch(MyCustumException e){
             context.json(e.getMessage()).status(e.getStatus());
@@ -388,6 +390,7 @@ public class BooksStoreController {
     private void getBooksByUserId(Context context) {
         try{
             int user_id = Integer.parseInt(context.pathParam("id"));
+            usersService.getUserById(user_id);
             var books = booksService.getBooksByUserId(user_id);
             context.json(books.toString());
         }catch(MyCustumException e){

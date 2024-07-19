@@ -74,7 +74,7 @@ public class BooksDAO {
     public List<Book> getAllBooks() {
         ArrayList<Book> books = new ArrayList<>();
         try {
-            String sql = "select * from books;";
+            String sql = "select * from books order by id;";
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery(sql);
@@ -140,14 +140,14 @@ public class BooksDAO {
             String sql = "select books.id, title, author_name, category, year, price, cover_img, summary, copies, date " +
                     "from books inner join bought_books on books.id = bought_books.book_id " +
                     "inner join users ON users.id = bought_books.user_id " +
-                    "where users.id = ?;";
+                    "where users.id = ? order by books.id ;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, userId);
 
             ResultSet rs = preparedStatement.executeQuery();
 
             while(rs.next()){
-                JSONObject jo = new JSONObject();
+                JSONObject jo = new JSONObject(); // json object because there are fields that's not in the books table
                 jo.put("book_id", rs.getInt("id"));
                 jo.put("title", rs.getString("title"));
                 jo.put("author_name", rs.getString("author_name"));
@@ -223,7 +223,7 @@ public class BooksDAO {
     public List<Book> getBooksByDateAfter(Date date) {
         ArrayList<Book> books = new ArrayList<>();
         try {
-            String sql = "select * from books where year >= ?;";
+            String sql = "select * from books where year >= ? order by id;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setDate(1, date);
 
@@ -249,7 +249,7 @@ public class BooksDAO {
     public List<Book> getBooksByDateBefore(Date date) {
         ArrayList<Book> books = new ArrayList<>();
         try {
-            String sql = "select * from books where year <= ?;";
+            String sql = "select * from books where year <= ? order by id;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setDate(1, date);
 

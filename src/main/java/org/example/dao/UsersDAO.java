@@ -58,7 +58,7 @@ public class UsersDAO {
             System.out.println(e.getMessage());
             throw new MyCustumException();
         }
-        throw new UserNotFoundException();
+        throw new UserNotFoundException(user_id);
     }
 
     public List<User> getAllUsers() {
