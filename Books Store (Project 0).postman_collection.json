@@ -1656,6 +1656,91 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"id\": 34,\n    \"title\": \"The Hunger Games2\",\n    \"author_name\": \"Suzanne Collins\",\n    \"category\": \"category 1\",\n    \"year\": \"2023-12-31\",\n    \"price\": 21.32,\n    \"cover_img\": \"localhost:8080/images/The_Hunger_Games2.jpg\",\n    \"summary\": \"summary\"\n}"
+						},
+						{
+							"name": "Add Book multipart not an image",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "The Hunger Games22",
+											"type": "text"
+										},
+										{
+											"key": "author_name",
+											"value": "Suzanne Collins",
+											"type": "text"
+										},
+										{
+											"key": "year",
+											"value": "2023-12-31",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "21.32",
+											"type": "text"
+										},
+										{
+											"key": "category",
+											"value": "category 1",
+											"type": "text"
+										},
+										{
+											"key": "summary",
+											"value": "summary",
+											"type": "text"
+										},
+										{
+											"key": "cover_img",
+											"type": "file",
+											"src": "/C:/Users/Mohammad Kabakibi/OneDrive/Desktop/books_table.csv"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/app/books/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										""
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jul 2024 13:37:57 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Please Choose An Image File.\"\n}"
 						}
 					]
 				},

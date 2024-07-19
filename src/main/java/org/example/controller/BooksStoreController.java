@@ -59,6 +59,7 @@ public class BooksStoreController {
         app.before("images/*",this::authorize);
         app.get("nothing",context -> {}); // returns nothing to keep the data from the Unauthorized exception.
 
+
         app.get("login", context -> context.result("login page..."));
         app.post("login", this::login);
 
@@ -276,24 +277,14 @@ public class BooksStoreController {
                     book.setPrice(Double.parseDouble(context.formParam("price")));
 
                 var cover_img = context.uploadedFile("cover_img");
-                String file_name = null;
-                if (cover_img != null && cover_img.size()>0) {
-                    file_name = IMAGES_FOLDER + book.getTitle().replaceAll("[^a-zA-Z0-9]", "_") + cover_img.extension();
-                    book.setCover_img(context.host() + file_name);
-                }
-                else
-                    book.setCover_img(context.host() + DEFAULT_COVER_IMAGE);
-
-                Book addedBook = booksService.addBook(book);
-                if (cover_img != null && cover_img.size()>0)
-                    FileUtils.copyInputStreamToFile(cover_img.content(), new File(UPLOAD_FOLDER + file_name));
+                Book addedBook = booksService.addBook(book, cover_img, context.host());
                 context.json(mapper.writeValueAsString(addedBook)).status(201);
             }
 
             else{
                 Book book = mapper.readValue(context.body(), Book.class);
-                book.setCover_img(context.host() + DEFAULT_COVER_IMAGE);
-                Book addedBook = booksService.addBook(book);
+//                book.setCover_img(context.host() + DEFAULT_COVER_IMAGE);
+                Book addedBook = booksService.addBook(book, null, context.host());
                 context.json(mapper.writeValueAsString(addedBook)).status(201);
             }
         }catch(MyCustumException e){

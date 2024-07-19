@@ -22,14 +22,31 @@ public class BooksService {
         this.booksDAO = new BooksDAO();
     }
 
-    public Book addBook(Book book) throws MyCustumException {
+    public Book addBook(Book book, UploadedFile cover_img, String host) throws MyCustumException {
         if(book.getPrice() < 0 || book.getTitle().length() < 2 )
             throw new InvalidValuesException();
         if(isDefaultImageName(book.getTitle().replaceAll("[^a-zA-Z0-9]", "_")))
             throw new InvalidBookTitleException("Title Cannot Be 'Default Cover Img'.");
         if(booksDAO.existingBook(book.getTitle()))
             throw new BookTitleExistsException();
-        return booksDAO.addBook(book);
+
+        String file_name = null;
+        if (cover_img != null && cover_img.size()>0) {
+            if(!isImage(cover_img))
+                throw new NotAnImageException();
+            file_name = IMAGES_FOLDER + book.getTitle().replaceAll("[^a-zA-Z0-9]", "_") + cover_img.extension();
+            book.setCover_img(host + file_name);
+        }
+        else
+            book.setCover_img(host + DEFAULT_COVER_IMAGE);
+
+        Book addedBook = booksDAO.addBook(book);
+        try {
+            if (cover_img != null && cover_img.size() > 0)
+                FileUtils.copyInputStreamToFile(cover_img.content(), new File(UPLOAD_FOLDER + file_name));
+        }catch (Exception q){}
+
+        return addedBook;
     }
 
     public List<Book> getAllBooks() {
@@ -61,6 +78,8 @@ public class BooksService {
         if(new_book.has("price"))
             book.setPrice(new_book.getDouble("price"));
         if(new_book.has("cover_img")) {
+            if(!isImage(new_img))
+                throw new NotAnImageException();
             file_name = book.getTitle().replaceAll("[^a-zA-Z0-9]","_") + new_img.extension();
             if(isDefaultImage(file_name))
                 throw new InvalidBookTitleException("Title Cannot Be 'Default Cover Img'.");
@@ -155,5 +174,10 @@ public class BooksService {
         if(date1.after(date2))
             throw new InvalidDateException("Invalid Date: Date1 Should Be After Date2.");
         return booksDAO.getMostKBooksBetween(date1, date2, k);
+    }
+
+    private boolean isImage(UploadedFile img){
+        String type = img.contentType().split("/")[0];
+        return type.equals("image");
     }
 }
