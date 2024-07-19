@@ -180,4 +180,8 @@ public class BooksService {
         String type = img.contentType().split("/")[0];
         return type.equals("image");
     }
+
+    public List<Book> getBooksByCategory(String category) {
+        return booksDAO.getBooksByCategory(category);
+    }
 }

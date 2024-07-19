@@ -348,6 +348,80 @@
 					]
 				},
 				{
+					"name": "Get Books By Category",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YWRtaW4=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/app/books/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"app",
+								"books",
+								"7"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Books By Category",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer YWRtaW4=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/app/books/category/category 2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"app",
+										"books",
+										"category",
+										"category 2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jul 2024 14:09:21 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "178"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 3,\n        \"title\": \"1984\",\n        \"author_name\": \"George Orwell\",\n        \"category\": \"category 2\",\n        \"year\": \"2023-12-31\",\n        \"price\": 12.21,\n        \"cover_img\": \"localhost:8080/images/1984.jpg\",\n        \"summary\": \"summary\"\n    }\n]"
+						}
+					]
+				},
+				{
 					"name": "Get Book Cover Image",
 					"request": {
 						"method": "GET",

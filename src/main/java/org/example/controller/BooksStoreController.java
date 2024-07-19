@@ -10,11 +10,9 @@ import io.javalin.http.staticfiles.Location;
 import org.example.exceptions.*;
 import org.example.model.Book;
 import org.example.model.User;
-import org.apache.commons.io.FileUtils;
 import org.example.service.BooksService;
 import org.example.service.UsersService;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.util.Base64;
@@ -73,6 +71,7 @@ public class BooksStoreController {
         app.delete("app/users/{id}", this::deleteUserById);
 
         app.get("app/books", this::getAllBooks);
+        app.get("app/books/category/{category}", this::getBooksByCategory);
         app.get("app/books/most_selling/{k}", this::getMostKBooks);
         app.get("app/books/most_selling", this::getMostKBooks);
         app.get("app/books/most_selling/{k}/after/{date}", this::getMostKBooksAfter);
@@ -317,6 +316,17 @@ public class BooksStoreController {
 //        catch(NumberFormatException e){
 //            context.json("{message:ID must be number}").status(400);}
         catch(Exception e){
+            System.out.println(e.getMessage());
+            context.status(400);
+        }
+    }
+
+    private void getBooksByCategory(Context context){
+        try {
+            String category = context.pathParam("category");
+            var books = booksService.getBooksByCategory(category);
+            context.json(mapper.writeValueAsString(books));
+        }catch(Exception e){
             System.out.println(e.getMessage());
             context.status(400);
         }

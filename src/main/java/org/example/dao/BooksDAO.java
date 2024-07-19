@@ -362,4 +362,30 @@ public class BooksDAO {
         }catch(Exception q){}
         return books;
     }
+
+    public List<Book> getBooksByCategory(String category) {
+        ArrayList<Book> books = new ArrayList<>();
+        try {
+            String sql = "select * from books where category = ? order by id;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, category);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                books.add(new Book(rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("author_name"),
+                        rs.getString("category"),
+                        rs.getDate("year"),
+                        rs.getDouble("price"),
+                        rs.getString("cover_img"),
+                        rs.getString("summary")));
+            }
+            return books;
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return books;
+    }
 }
