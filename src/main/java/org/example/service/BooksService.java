@@ -25,7 +25,7 @@ public class BooksService {
     public Book addBook(Book book) throws MyCustumException {
         if(book.getPrice() < 0 || book.getTitle().length() < 2 )
             throw new InvalidValuesException();
-        if(isDefaultImage(book.getTitle().replaceAll("[^a-zA-Z0-9]", "_")))
+        if(isDefaultImageName(book.getTitle().replaceAll("[^a-zA-Z0-9]", "_")))
             throw new InvalidBookTitleException("Title Cannot Be 'Default Cover Img'.");
         if(booksDAO.existingBook(book.getTitle()))
             throw new BookTitleExistsException();
@@ -89,10 +89,10 @@ public class BooksService {
         Book deleted_book = booksDAO.getBookById(bookId);
         booksDAO.deleteBookById(bookId);
             try {
-                if(isDefaultImage(deleted_book.getCover_img()))
-                    return deleted_book;
                 var arr = deleted_book.getCover_img().split("/");
                 String img_name = arr[arr.length-1];
+                if(isDefaultImage(img_name))
+                    return deleted_book;
                 var cover_img = new File(UPLOAD_FOLDER + IMAGES_FOLDER + img_name);
                 if(cover_img.exists())
                     cover_img.delete();
@@ -115,6 +115,9 @@ public class BooksService {
     }
 
     private boolean isDefaultImage(String cover_img){
+        return DEFAULT_COVER_IMAGE.endsWith(cover_img);
+    }
+    private boolean isDefaultImageName(String cover_img){
         return DEFAULT_COVER_IMAGE.split("\\.")[0].endsWith(cover_img);
     }
 
