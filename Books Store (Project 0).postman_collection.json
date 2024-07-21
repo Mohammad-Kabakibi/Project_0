@@ -359,7 +359,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/app/books/7",
+							"raw": "http://localhost:8080/app/books/category/category 2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -368,7 +368,8 @@
 							"path": [
 								"app",
 								"books",
-								"7"
+								"category",
+								"category 2"
 							]
 						}
 					},
@@ -2756,7 +2757,7 @@
 					]
 				},
 				{
-					"name": "Delete User By ID Copy",
+					"name": "Delete User By ID",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -2791,7 +2792,7 @@
 					},
 					"response": [
 						{
-							"name": "Delete User By ID Copy",
+							"name": "Delete User By ID",
 							"originalRequest": {
 								"method": "DELETE",
 								"header": [
